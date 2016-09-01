@@ -1,0 +1,6 @@
+import objects.*
+
+test "La velocidad de una escoba Nimbus es (80 - su edad) * % de salud" {
+	var nimbus2001_50hp = new Nimbus(2001,50)
+	assert.that(nimbus2001_50hp.velocidad() == ((80-15)*0.5))
+}

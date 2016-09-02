@@ -1,0 +1,15 @@
+test "testX" {
+	
+	var malaria = new Infecciosa(500)
+	var otitis = new Infecciosa(100)
+	var lupus = new Autoinmune(1000)
+	var otraMalaria = new Infecciosa(500)
+	var logan = new Persona(36, 3000000, [malaria, otitis, lupus])
+	var frank = new Persona(36, 3500000, [])
+	
+	
+	frank.contrae(otraMalaria)
+	
+	malaria.reproducite()
+
+}

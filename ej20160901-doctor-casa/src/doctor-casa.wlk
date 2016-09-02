@@ -6,10 +6,6 @@ class Infecciosa {
 	var infectado
 	var celulasAmenazadas
 	
-	method infectar(persona) {
-		infectado = persona
-	}
-	
 	method afectar(){
 		infectado.aumentarTemperatura(celulasAmenazadas/1000);
 	}
@@ -19,9 +15,12 @@ class Infecciosa {
 	}
 	
 	method reproducirse(){
-		celulasAmenazadas = self.getCelulasAmenazadas() * 2 
+		celulasAmenazadas *= 2 
 	}
-		
+
+	method infectar(persona) {
+		infectado = persona
+	}		
 	
 
 	method setCelulasAmenazadas(_celulasAmenazadas){
@@ -46,7 +45,7 @@ class Autoinmune {
 	}
 		
 	
-	method celulasAmenazadas(_celulasAmenazadas){
+	method setCelulasAmenazadas(_celulasAmenazadas){
 		celulasAmenazadas = _celulasAmenazadas;
 	}
 	

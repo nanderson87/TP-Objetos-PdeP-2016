@@ -7,19 +7,22 @@ class Nimbus {
 		salud = c_salud
 	}
 	
+	method salud()= salud
+	
 	method velocidad() {
 		return (80 - (new Date().year() - modelo)) * ((1.0* salud)/100)
 	}
 	
-	method golpear() {
+	method golpearPorBludger() {
 		salud -= 10
 	}
 }
 
 object saetaDeFuego {
+	var velocidad = 100
 	
-	method velocidad() = 100
+	method velocidad() = velocidad
 	
-	method golpear() {}
+	method golpearPorBludger() {}
 	
 }

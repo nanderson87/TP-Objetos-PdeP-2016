@@ -21,8 +21,6 @@ class Jugador {
 	}
 	
 	method skills()= skills 
-		
-	method peso() =peso
 
 	method fuerza() = fuerza
 	

@@ -43,7 +43,7 @@ test "Fred Weasley, por ser golpeador, tiene una habilidad de 240."{
 	assert.equals(240, fredWeasley.habilidad())
 }
 
-test "Ron Weasley, por ser guardi·n, tiene una habilidad de 120,8." {
+test "Ron Weasley, por ser guardi√°n, tiene una habilidad de 120,8." {
 	var ronWeasley = new Jugador(guardian, 30, 60, 50, new Nimbus(2000, 50), 0)
 	assert.equals(120.8, ronWeasley.habilidad())
 }
@@ -114,6 +114,7 @@ test "Slytherin tiene jugador estrella contra Gryffindor"{
 	var gryffindor = new Equipo( [angelinaJohnson, fredWeasley, katieBell, georgeWeasley, ginnyWeasley, ronWeasley,harryPotter])
 	
 	assert.that(slytherin.jugadorEstrellaContra(gryffindor))
+	assert.that(!gryffindor.jugadorEstrellaContra(slytherin))
 
 }
 

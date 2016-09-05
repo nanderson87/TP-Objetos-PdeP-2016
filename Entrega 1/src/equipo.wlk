@@ -1,4 +1,6 @@
+import escobas.*
 import jugador.*
+import posicionJugador.*
 import mercadoDeEscobas.*
 
 class Equipo {
@@ -18,6 +20,6 @@ class Equipo {
 	method unJugadorLePasaElTrapoA(jugador, unEquipo) = unEquipo.all({unRival => jugador.lePasaElTrapo(unRival)}) 
 	
 	//No le pude encontrar la vuelta
-	method jugadorEstrellaContra(equipoRival) = jugadores.any({jugador => self.unJugadorLePasaElTrapoA(jugador, equipoRival)})
+	method jugadorEstrellaContra(equipoRival) = jugadores.any({d => equipoRival.jugadores().all({e => d.lePasaElTrapo(e)})})
 	
 }

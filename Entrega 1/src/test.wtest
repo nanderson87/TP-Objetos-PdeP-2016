@@ -113,7 +113,7 @@ test "Slytherin tiene jugador estrella contra Gryffindor"{
 	
 	var gryffindor = new Equipo( [angelinaJohnson, fredWeasley, katieBell, georgeWeasley, ginnyWeasley, ronWeasley,harryPotter])
 	
-	assert.that(slytherin.jugadorEstrella(gryffindor))
+	assert.that(slytherin.jugadorEstrellaContra(gryffindor))
 
 }
 

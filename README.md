@@ -18,4 +18,4 @@
 
 
 
-![Diagrama de Clase - Entrega 1](https://raw.githubusercontent.com/Jaxidox/TP-Objetos-PdeP-2016/master/Entrega%201/Diagrama%20de%20Clases%20-%20Entrega1.png?token=ALUzwq2zJXwDHFiSTP8sH1odOo7sgtV1ks5X1VoXwA%3D%3D "Diagrama de Clase - Entrega 1")
+![Diagrama de Clase - Entrega 1](https://github.com/Jaxidox/TP-Objetos-PdeP-2016/blob/master/Entrega%201/Diagrama%20de%20Clases%20-%20Entrega1.png "Diagrama de Clase - Entrega 1")

@@ -14,7 +14,13 @@
 
 [Picadito Quidditch - Entrega 1](https://docs.google.com/document/d/1DuPcu8Y_oYFDKzOBXCwsJVZwqgTzFhRZYaNvBqxfT_Q/edit#)
 
-#### Diagrama de Clases 
+#### Ejercicios:
+[Doctor Casa Parte 1](https://docs.google.com/document/d/1cCVgPPxfgoIj6OKuTXKB17S8PrGy77NbpbMTn33r1mo/edit#heading=h.ed6e1pqc2o9s)
+
+[Doctor Casa Parte 2](https://docs.google.com/document/d/1cCVgPPxfgoIj6OKuTXKB17S8PrGy77NbpbMTn33r1mo/edit#heading=h.gww12cc7ovs)
+
+
+### Diagrama de Clases 
 
 
 

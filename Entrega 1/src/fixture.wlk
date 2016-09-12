@@ -30,5 +30,33 @@ object fixture {
 	
 	method slytherin() = slytherin
 	
+	method angelinaJohnson() = angelinaJohnson
+	
+	method fredWeasley() = fredWeasley
+	
+	method katieBell() = katieBell
+	
+	method georgeWeasley() = georgeWeasley
+	
+	method ginnyWeasley() = ginnyWeasley
+	
+	method ronWeasley() = ronWeasley
+	
+	method harryPotter() = harryPotter
+	
+	method adrianPucey() = adrianPucey
+	
+	method vincentCrabbe() = vincentCrabbe
+	
+	method grahamMontague() = grahamMontague
+	
+	method gregoryGoyle() = gregoryGoyle
+	
+	method warrington() = warrington
+	
+	method milesBletchley() = milesBletchley
+	
+	method dracoMalfoy() = dracoMalfoy
+	
 	
 }

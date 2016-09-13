@@ -12,6 +12,7 @@ El mismo es desarrollado en el lenguaje de progrmación y entorno de desarrollo 
 | [Anderson Nicolás](https://github.com/nanderson87) | 138.434-0 | nicolas.anderson87@gmail.com |
 | [Bogo David](https://github.com/frostfrozen) | 149.870-8 | davidnicohuignard@gmail.com |
 | [Decurgez Damián](https://github.com/damiandecurgez) | 149.341-3 | dadecu@est.frba.utn.edu.ar |
+| [Sorbelli Luciana](https://github.com/lucianasorbelli) | 141.977-8 | lucianasorbelli@gmail.com  |
 
 
 ## Picadito de Quidditch 

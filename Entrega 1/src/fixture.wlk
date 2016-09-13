@@ -2,7 +2,6 @@ import jugador.*
 import escobas.*
 import equipo.*
 import posicionJugador.*
-import mercadoDeEscobas.*
 
 object fixture {
 	var angelinaJohnson  = new Jugador(cazador, 40, 55, 40, saetaDeFuego, 3)

@@ -1,7 +1,5 @@
 import jugador.*
 import mercadoDeEscobas.*
-import escobas.*
-import posicionJugador.*
 
 class Equipo {
 	var jugadores

@@ -1,7 +1,7 @@
 # TP Objetos PdeP 2016
 
-Este repositorio contiene el trabajo práctico del paradigma de objetos para la materia Paradigmas de Programación. 
-El mismo es desarrollado en el lenguaje de progrmación y entorno de desarrollo integrado (IDE) [Wollok](http://www.wollok.org/) 
+Este repositorio contiene el trabajo práctico del paradigma de objetos para la materia Paradigmas de Programación.
+El mismo es desarrollado en el lenguaje de progrmación y entorno de desarrollo integrado (IDE) [Wollok](http://www.wollok.org/)
 
 
 ## Integrantes
@@ -14,7 +14,7 @@ El mismo es desarrollado en el lenguaje de progrmación y entorno de desarrollo 
 | [Decurgez Damián](https://github.com/damiandecurgez) | 149.341-3 | dadecu@est.frba.utn.edu.ar |
 
 
-## Picadio Quidditch 
+## Picadito de Quidditch 
 
 ### Entrega 1
 
@@ -23,17 +23,3 @@ El mismo es desarrollado en el lenguaje de progrmación y entorno de desarrollo 
 * Diagrama de Clases
 
 ![Diagrama de Clase - Entrega 1](https://github.com/Jaxidox/TP-Objetos-PdeP-2016/blob/master/Entrega%201/Diagrama%20de%20Clases%20-%20Entrega1.png "Diagrama de Clase - Entrega 1")
-
-
-
-### Ejercicios:
-
-* [Doctor Casa Parte 1](https://docs.google.com/document/d/1cCVgPPxfgoIj6OKuTXKB17S8PrGy77NbpbMTn33r1mo/edit#heading=h.ed6e1pqc2o9s)
-* [Doctor Casa Parte 2](https://docs.google.com/document/d/1cCVgPPxfgoIj6OKuTXKB17S8PrGy77NbpbMTn33r1mo/edit#heading=h.gww12cc7ovs)
-
-
-
-
-
-
-

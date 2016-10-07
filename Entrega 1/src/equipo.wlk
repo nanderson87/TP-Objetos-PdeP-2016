@@ -1,5 +1,7 @@
 import jugador.*
 import mercadoDeEscobas.*
+import escobas.*
+import posicionJugador.*
 
 class Equipo {
 	var jugadores
@@ -13,7 +15,7 @@ class Equipo {
 	
 	method habilidadPromedio() = jugadores.sum({unJugador => unJugador.habilidad()}) / jugadores.size()
 	
-	method jugadoresGrosos() = jugadores.filter({unJugador => unJugador.habilidad() > self.habilidadPromedio() && unJugador.velocidad() >=  mercadoDeEscobas.velocidadEstablecida()})
+	method jugadoresGrosos() = jugadores.filter({unJugador => unJugador.soyGroso(self)})
 	
 	method jugadorEstrellaContra(equipoRival) = jugadores.any({d => equipoRival.jugadores().all({e => d.lePasaElTrapo(e)})})
 	

@@ -1,11 +1,14 @@
 import escobas.*
 import posicionJugador.*
+import equipo.*
+import mercadoDeEscobas.*
 
 class Jugador {
 	var skills
 	var peso
 	var fuerza
 	var escoba
+	
 	 
 	constructor( _skills,_peso, _fuerza, _escoba ){
 		
@@ -29,6 +32,8 @@ class Jugador {
 	method habilidad() = self.velocidad() + self.skills()
 
 	method reflejo() = ( self.velocidad() * self.skills() / 100 )
+	
+	method soyGroso(equipo) =  self.habilidad() > equipo.habilidadPromedio() && self.velocidad() >=  mercadoDeEscobas.velocidadEstablecida()
 
 	method golpearPorBludger() {
 		skills -= 2

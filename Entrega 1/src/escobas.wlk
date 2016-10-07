@@ -19,8 +19,9 @@ class Nimbus {
 }
 
 object saetaDeFuego {
+	var velocidad = 100
 	
-	method velocidad() = 100
+	method velocidad() = velocidad
 	
 	method golpearPorBludger() {}
 	

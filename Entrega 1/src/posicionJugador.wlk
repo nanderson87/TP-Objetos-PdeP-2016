@@ -1,34 +1,50 @@
 import jugador.*
 
-object cazador {
+class Cazador inherits Jugador {
+	var punteria
 	
-	method suReflejoEs(jugador) = jugador.velocidad() * jugador.skills() / 100
+	
+	constructor( _skills,_peso, _fuerza, _escoba,_punteria ) = super( _skills,_peso, _fuerza, _escoba )
+	{
+		punteria = _punteria
+	}
+	
+	override method habilidad() = super() + punteria * fuerza
+}
+
+class Guardian inherits Jugador{
+	
+		constructor(_skills,_peso,_fuerza,_escoba) = super(_skills,_peso,_fuerza,_escoba)
 		
-	method suHabilidadEs(jugador) = jugador.velocidad() + jugador.skills() + jugador.otrasHabilidades() * jugador.fuerza()
-
-}
-
-object guardian {
 	
-	method suReflejoEs(jugador)= ( jugador.velocidad() * jugador.skills() / 100 ) + 20
+	override method reflejo() = super() + 20
 	
-	method suHabilidadEs(jugador) = jugador.velocidad() + jugador.skills() + jugador.reflejo() + jugador.fuerza() 
+	override method habilidad() = super() + self.reflejo() + fuerza 
 	
 }
 
-object golpeador {
+class Golpeador inherits Jugador{
+	var punteria
+		constructor( _skills,_peso, _fuerza, _escoba,_punteria ) = super( _skills,_peso, _fuerza, _escoba )
+	{
+		punteria = _punteria
+	}
 	
-	method suReflejoEs(jugador)=  jugador.velocidad() * jugador.skills() / 100
 	
-	method suHabilidadEs(jugador) = jugador.velocidad() + jugador.skills() + jugador.otrasHabilidades() + jugador.fuerza() 
+	override method habilidad() = super()+ punteria + fuerza
 	
 	
 }
 
-object buscador {
+class Buscador  inherits Jugador{
+	var vision
 	
-	method suReflejoEs(jugador) = jugador.velocidad() * jugador.skills() / 100 
+			constructor( _skills,_peso, _fuerza, _escoba,_vision ) = super( _skills,_peso, _fuerza, _escoba )
+	{
+		vision = _vision
+	}
 	
-	method suHabilidadEs(jugador) = jugador.velocidad() + jugador.skills() + jugador.reflejo() * jugador.otrasHabilidades() 
+	
+	override method habilidad() = super() + self.reflejo() * vision 
 
 }

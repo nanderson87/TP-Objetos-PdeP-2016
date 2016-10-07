@@ -1,4 +1,7 @@
 import escobas.*
+import jugador.*
+import posicionJugador.*
+import equipo.*
 import fixture.*
 
 
@@ -47,20 +50,24 @@ test "Fred Weasley NO le pasa el trapo a Warrington."{
 	assert.that(not (fixture.fredWeasley().lePasaElTrapo(fixture.warrington())))
 }
 
-test "De Gryffindor Harry, Fred, Angelina y Katie son jugadores grosos"{
-	assert.equals([fixture.angelinaJohnson(),fixture.fredWeasley(), fixture.katieBell(),fixture.harryPotter()], fixture.gryffindor().jugadoresGrosos())
-}
+
+test "De Gryffindor Fred, Angelina y Katie son jugadores grosos"{
+	assert.equals([fixture.angelinaJohnson(),fixture.fredWeasley(), fixture.katieBell()], fixture.gryffindor().jugadoresGrosos())
+	}
 
 test "De Slytherin  Warrington y  Montague son jugadores grosos" {
 	assert.equals([fixture.grahamMontague(), fixture.warrington()],fixture.slytherin().jugadoresGrosos())	
 }
 
+
 test "Slytherin tiene jugador estrella contra Gryffindor"{
 	assert.that(fixture.slytherin().jugadorEstrellaContra(fixture.gryffindor()))
+
 }
 
 test "Gryffindor NO tiene jugador estrella contra Slytherin"{
 	assert.that(!(fixture.gryffindor().jugadorEstrellaContra(fixture.slytherin())))
+
 }
 
 test "Si Crabbe es golpeado por una bludger sus skills pasan a ser 78."{

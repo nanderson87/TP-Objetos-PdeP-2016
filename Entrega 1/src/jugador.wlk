@@ -25,7 +25,7 @@ class Jugador {
 	
 	method escoba() = escoba			
 	
-	method nivelManejoDeEscoba() = (skills * 1.0) / peso
+	method nivelManejoDeEscoba() = skills / peso
 
 	method velocidad()= escoba.velocidad() * self.nivelManejoDeEscoba() 
 	

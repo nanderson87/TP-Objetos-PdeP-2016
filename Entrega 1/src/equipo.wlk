@@ -5,8 +5,9 @@ import posicionJugador.*
 
 class Equipo {
 	var jugadores
+	var puntaje = 0
 	
-	constructor (_jugadores ){
+	constructor (_jugadores ){	//TODO mandarle mensaje a los jugadores seteando el equipo
 		jugadores = _jugadores
 		 
 	}

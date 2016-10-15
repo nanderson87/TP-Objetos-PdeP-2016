@@ -38,6 +38,7 @@ class Golpeador inherits Jugador{
 
 class Buscador  inherits Jugador{
 	var vision
+	var actividad	// Un objeto para busqueda y otro para persecucion
 	
 			constructor( _skills,_peso, _fuerza, _escoba,_vision ) = super( _skills,_peso, _fuerza, _escoba )
 	{

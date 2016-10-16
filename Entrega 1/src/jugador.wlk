@@ -9,7 +9,7 @@ class Jugador {
 	var peso
 	var fuerza
 	var escoba
-	var miEquipo		//TODO a ser seteado por el constructor de equipo
+	var miEquipo		
 	var tengoQuaffle
 	
 	 
@@ -24,11 +24,19 @@ class Jugador {
 	}
 	
 	method skills()= skills 
+	
+	method skills(_skills) {skills = _skills}
+	
+	method tengoQuaffle(_tengoQuaffle) {tengoQuaffle = _tengoQuaffle}
+	
+	method ganarSkillsPorBloqueo() { self.skills((self.skills() + 3)) }
 
 	method fuerza() = fuerza
 	
 	method escoba() = escoba			
 	
+	method miEquipo(_miEquipo) {miEquipo = _miEquipo}
+		
 	method nivelManejoDeEscoba() = skills / peso
 
 	method velocidad()= escoba.velocidad() * self.nivelManejoDeEscoba() 
@@ -49,9 +57,7 @@ class Jugador {
 //	method hacerJugada() = true
 	
 //	method blancoUtil() = true
-	
-	method bloquear(cazadorEnemigo) = miEquipo.elMasVeloz().lePasaElTrapo(cazadorEnemigo) || suerte.tieneSuerte()
-	
-//	method puedeBloquear() = true
+
+	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || suerte.tieneSuerte()
 	
 }

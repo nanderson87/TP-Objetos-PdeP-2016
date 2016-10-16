@@ -20,4 +20,6 @@ class Equipo {
 	
 	method jugadorEstrellaContra(equipoRival) = jugadores.any({d => equipoRival.jugadores().all({e => d.lePasaElTrapo(e)})})
 	
+	method elMasVeloz() = jugadores.max({unJugador => unJugador.velocidad()})
+	
 }

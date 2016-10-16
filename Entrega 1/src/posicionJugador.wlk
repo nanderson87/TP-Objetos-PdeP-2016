@@ -48,5 +48,5 @@ class Buscador  inherits Jugador{
 	
 	override method habilidad() = super() + self.reflejo() * vision 
 
-	override method puedeBloquear() = false
+	//override method puedeBloquear() = false
 }

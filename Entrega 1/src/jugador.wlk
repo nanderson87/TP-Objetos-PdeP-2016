@@ -2,6 +2,7 @@ import escobas.*
 import posicionJugador.*
 import equipo.*
 import mercadoDeEscobas.*
+import suerte.*
 
 class Jugador {
 	var skills
@@ -12,13 +13,14 @@ class Jugador {
 	var tengoQuaffle
 	
 	 
-	constructor( _skills,_peso, _fuerza, _escoba ){
+	constructor( _skills,_peso, _fuerza, _escoba, _miEquipo, _tengoQuaffle ){
 		
 		skills = _skills
 		peso = _peso
 		fuerza = _fuerza
 		escoba = _escoba
-		
+		miEquipo = _miEquipo
+		tengoQuaffle = _tengoQuaffle
 	}
 	
 	method skills()= skills 
@@ -48,6 +50,8 @@ class Jugador {
 	
 	method blancoUtil()
 	
-	method puedeBloquear() //TODO, los buscadores tienen que hacerle un override y retornar false
+	method bloquear(cazadorEnemigo) = miEquipo.elMasVeloz().lePasaElTrapo(cazadorEnemigo) || suerte.tieneSuerte()
+	
+	method puedeBloquear()
 	
 }

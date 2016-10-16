@@ -9,7 +9,7 @@ object fixture {
 	var fredWeasley = new Golpeador( 80, 80, 90, new Nimbus(2001, 80), null, false, 18)
 	var katieBell = new Cazador( 45, 60, 30, saetaDeFuego, null, false, 4)
 	var georgeWeasley = new Golpeador( 70, 80, 70, new Nimbus(2001, 50), null, false, 17)
-	var ginnyWeasley = new Cazador( 50, 50, 40, new Nimbus(2000, 50), 5, null, false)
+	var ginnyWeasley = new Cazador( 50, 50, 40, new Nimbus(2000, 50), null, false, 5)
 	var ronWeasley = new Guardian( 30, 60, 50, new Nimbus(2000, 50), null, false)
 	var harryPotter = new Buscador( 30, 60, 50, saetaDeFuego, null, false, 2, 0)
 	

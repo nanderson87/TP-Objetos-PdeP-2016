@@ -11,7 +11,10 @@ class Equipo {
 		jugadores = _jugadores
 		 
 	}
-	method aumentaTuPuntaje() = puntaje += 150
+	
+	method aumentaTuPuntaje() {
+		puntaje += 150
+	}
 	
 	method jugadores() = jugadores
 	

@@ -21,6 +21,6 @@ El mismo es desarrollado en el lenguaje de progrmación y entorno de desarrollo 
 
 * Enunciado: [Picadito Quidditch - Entrega 1](https://docs.google.com/document/d/1DuPcu8Y_oYFDKzOBXCwsJVZwqgTzFhRZYaNvBqxfT_Q/edit#)
 
-* Diagrama de Clases
+* Diagrama de Clases - v1.1
 
-![Diagrama de Clase - Entrega 1](https://github.com/Jaxidox/TP-Objetos-PdeP-2016/blob/master/Entrega%201/Diagrama%20de%20Clases%20-%20Entrega1.png "Diagrama de Clase - Entrega 1")
+![Diagrama de Clase - v1.1](https://github.com/zkLXXKO/TP-Objetos-PdeP-2016/blob/master/Diagrama%20de%20Clases/Diagrama%20de%20Clases%20v1.1.png)

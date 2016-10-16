@@ -8,6 +8,8 @@ class Jugador {
 	var peso
 	var fuerza
 	var escoba
+	var miEquipo		//TODO a ser seteado por el constructor de equipo
+	var tengoQuaffle
 	
 	 
 	constructor( _skills,_peso, _fuerza, _escoba ){
@@ -41,5 +43,11 @@ class Jugador {
 	} 
 	
 	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2 
+	
+	method hacerJugada()
+	
+	method blancoUtil()
+	
+	method puedeBloquear() //TODO, los buscadores tienen que hacerle un override y retornar false
 	
 }

@@ -1,4 +1,5 @@
 import jugador.*
+import persecucion.*
 
 class Cazador inherits Jugador {
 	var punteria
@@ -37,15 +38,56 @@ class Golpeador inherits Jugador{
 }
 
 class Buscador  inherits Jugador{
+	var metrosRecorridos
 	var vision
 	var actividad	// Un objeto para busqueda y otro para persecucion
 	
-			constructor( _skills,_peso, _fuerza, _escoba,_vision ) = super( _skills,_peso, _fuerza, _escoba )
+			constructor( _skills,_peso, _fuerza, _escoba,_metrosRecorridos, _vision, _actividad ) = super( _skills,_peso, _fuerza, _escoba )
 	{
 		vision = _vision
+		metrosRecorridos = _metrosRecorridos
+		actividad = _actividad
+	}
+	
+	//getters
+	method vision() = vision
+	method metrosRecorridos() = metrosRecorridos
+	 //
+	 
+	 
+	method aumentaTuRecorrido(){
+		metrosRecorridos = 2* self.velocidad()
+		return metrosRecorridos
+	}
+	
+	method aumentaTusSkills() {
+		self.skills() += 30
+	}
+	
+	method haceGanarATuEquipo(){
+		self.miEquipo().aumentaTuPuntaje()
+	}
+	
+	method encontreLaSnitch(){
+		return actividad.encontreLaSnitch()
+	}
+	
+	//override methods
+	override method golpearPorBludger(){
+		super()
+		if (self.soyGroso(unEquipo)){
+			//quedoAturdidoEnLaAct
+		}
+		else
+			metrosRecorridos = 0
+			//objetoBusqueda.realizate(self)
+		
 	}
 	
 	
 	override method habilidad() = super() + self.reflejo() * vision 
+	override method puedeBloquear() = false
+	override method hacerJugada(unEquipo) = actividad.realizate(self)
 
 }
+

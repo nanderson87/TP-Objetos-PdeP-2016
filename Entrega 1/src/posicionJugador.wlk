@@ -21,6 +21,8 @@ class Guardian inherits Jugador{
 	
 	override method habilidad() = super() + self.reflejo() + fuerza 
 	
+	override method ganarSkillsPorBloqueo() { self.skills((self.skills() + 10)) }
+	
 }
 
 class Golpeador inherits Jugador{

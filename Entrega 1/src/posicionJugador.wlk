@@ -95,10 +95,6 @@ class Golpeador inherits Jugador{
 			skills += 5 
 		}
 	}
-	
-	method bloquear() {
-		skills += 3
-	}
 
 }
 

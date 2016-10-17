@@ -26,23 +26,26 @@ class Equipo {
 	
 	method bloquear(cazadorEnemigo) 
 		{
-			var lOrdenada = new List()
-			var bloqueador 
-			lOrdenada = self.ordenarPorMasVeloz()	
-		
-			lOrdenada = lOrdenada.filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})		
-			bloqueador = lOrdenada.findOrElse({bloquea => true}, {null})
-		
- 			if (bloqueador != null)
+			if (cazadorEnemigo.tengoQuaffle())	
 				{
-					bloqueador.ganarSkillsPorBloqueo()
-					cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)
-					cazadorEnemigo.tengoQuaffle(false)
-				}
-			else
-				{
-					cazadorEnemigo.skills(cazadorEnemigo.skills() + 5)
-					cazadorEnemigo.tengoQuaffle(false)
+					var lOrdenada = new List()
+					var bloqueador 
+					lOrdenada = self.ordenarPorMasVeloz()	
+				
+					lOrdenada = lOrdenada.filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})		
+					bloqueador = lOrdenada.findOrElse({bloquea => true}, {null})
+				
+		 			if (bloqueador != null)
+						{
+							bloqueador.ganarSkillsPorBloqueo()
+							cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)					
+						}
+					else
+						{
+							cazadorEnemigo.skills(cazadorEnemigo.skills() + 5)					
+						}
+						cazadorEnemigo.tengoQuaffle(false)
+						
 				}
 		}
 	//OJO!!! SOLO PARA DEBUGEAR SI SE SUMAN SKILLS!!!!!!!!

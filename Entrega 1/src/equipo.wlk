@@ -22,19 +22,19 @@ class Equipo {
 	
 	method ordenarPorMasVeloz() = jugadores.sortedBy({unJugador, otroJugador => unJugador.velocidad() > otroJugador.velocidad()})
 	
+	method quienBloqueaACazador(cazador) 
+		{
+					var lOrdenada = self.ordenarPorMasVeloz()				
+				
+					lOrdenada = lOrdenada.filter({bloqueador => bloqueador.puedeBloquear(cazador)})		
+					return lOrdenada.findOrElse({bloquea => true}, {null})
+		}
+	
 	method equipo() = jugadores.map({unJugador => unJugador.miEquipo(self)})
 	
 	method bloquear(cazadorEnemigo) 
 		{
-			if (cazadorEnemigo.tengoQuaffle())	
-				{
-					var lOrdenada = new List()
-					var bloqueador 
-					lOrdenada = self.ordenarPorMasVeloz()	
-				
-					lOrdenada = lOrdenada.filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})		
-					bloqueador = lOrdenada.findOrElse({bloquea => true}, {null})
-				
+					var bloqueador = self.quienBloqueaACazador(cazadorEnemigo)	
 		 			if (bloqueador != null)
 						{
 							bloqueador.ganarSkillsPorBloqueo()
@@ -43,11 +43,9 @@ class Equipo {
 					else
 						{
 							cazadorEnemigo.skills(cazadorEnemigo.skills() + 5)
-							puntaje += 10						
+							cazadorEnemigo.sumarPuntaje(10)					
 						}
-						cazadorEnemigo.tengoQuaffle(false)
-						
-				}
+						cazadorEnemigo.tengoQuaffle(false)						
 		}
 	//OJO!!! SOLO PARA DEBUGEAR SI SE SUMAN SKILLS!!!!!!!!
 	//LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE

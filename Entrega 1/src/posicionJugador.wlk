@@ -6,14 +6,13 @@ import suerte.*
 class Cazador inherits Jugador {
 	var punteria
 	
-	
 	constructor( _skills,_peso, _fuerza, _escoba,_punteria ) = super(_skills,_peso,_fuerza,_escoba )
 	{
 		punteria = _punteria
 	}
 	
 	override method habilidad() = super() + punteria * fuerza
-	
+
 	override method puedoObtenerQuaffle() = true
 	
 	method obtenerLaQuaffle(){
@@ -33,6 +32,12 @@ class Cazador inherits Jugador {
 		if(tengoQuaffle){
 			self.perderQuaffleContra(rival.miEquipo())
 		}
+	}
+	
+	override method blancoUtil(equipoRival) = super(equipoRival) || self.tengoQuaffle()
+	
+	override method hacerJugada(equipoRival) {	//TODO mal
+		if (self.tengoQuaffle()) {super(equipoRival)}
 	}
 }
 
@@ -55,12 +60,16 @@ class Guardian inherits Jugador{
 	method bloquear(){
 		skills += 10
 	}	
+
+	override method ganarSkillsPorBloqueo() {
+		self.skills((self.skills() + 10))
+	}
 }
 
 class Golpeador inherits Jugador{
 	var punteria
-		constructor(_skills,_peso,_fuerza,_escoba,_punteria) = super(_skills,_peso,_fuerza,_escoba)
-	{
+
+	constructor(_skills,_peso,_fuerza,_escoba,_punteria) = super(_skills,_peso,_fuerza,_escoba){
 		punteria = _punteria
 	}
 	
@@ -84,11 +93,12 @@ class Buscador  inherits Jugador{
 	var vision
 	var actividad	// Un objeto para busqueda y otro para persecucion
 	
-	constructor( _skills,_peso, _fuerza, _escoba,_vision ) = super( _skills,_peso, _fuerza, _escoba )
+	constructor(_skills,_peso,_fuerza,_escoba,_vision) = super(_skills,_peso,_fuerza,_escoba)
 	{
 		vision = _vision
 	}
 	
 	override method habilidad() = super() + self.reflejo() * vision 
 
+	override method puedeBloquear(cazadorEnemigo) = false
 }

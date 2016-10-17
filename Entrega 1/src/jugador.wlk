@@ -46,6 +46,8 @@ class Jugador {
 	
 	method tieneLaQuaffle() = tengoQuaffle
 	
+	method puedoObtenerQuaffle() = false
+	
 	method hacerJugada()
 	
 	method blancoUtil()

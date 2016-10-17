@@ -10,6 +10,12 @@ class Cazador inherits Jugador {
 	}
 	
 	override method habilidad() = super() + punteria * fuerza
+	
+	override method puedoObtenerQuaffle() = true
+	
+	method obtenerLaQuaffle(){
+		tengoQuaffle = true
+	}
 }
 
 class Guardian inherits Jugador{
@@ -20,6 +26,13 @@ class Guardian inherits Jugador{
 	override method reflejo() = super() + 20
 	
 	override method habilidad() = super() + self.reflejo() + fuerza 
+	
+	override method puedoObtenerQuaffle() = true
+	
+	method obtenerLaQuaffle(){
+		miEquipo.jugadoresPuedenObtenerQuaffle().filter({jugador=>jugador != self}).max({jugador=>jugador.habilidad()})
+	}
+	
 	
 }
 

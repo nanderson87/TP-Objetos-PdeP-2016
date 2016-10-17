@@ -10,6 +10,8 @@ class Cazador inherits Jugador {
 
 	
 	override method habilidad() = super() + punteria * fuerza
+	
+	override method blancoUtil(equipoRival) = super(equipoRival) || self.tengoQuaffle()
 }
 
 class Guardian inherits Jugador{

@@ -18,6 +18,5 @@ class Equipo {
 	
 	method jugadoresGrosos() = jugadores.filter({unJugador => unJugador.soyGroso(self)})
 	
-	method jugadorEstrellaContra(equipoRival) = jugadores.any({d => equipoRival.jugadores().all({e => d.lePasaElTrapo(e)})})
-	
+	method jugadorEstrellaContra(equipoRival) = jugadores.any({j => j.soyJugadorEstrellaContra(equipoRival)})
 }

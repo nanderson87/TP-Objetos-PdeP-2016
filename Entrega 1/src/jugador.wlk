@@ -54,7 +54,7 @@ class Jugador {
 	
 	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2 
 	
-	method hacerJugada(equipoRival) = true
+	method hacerJugada(equipoRival) {}
 	
 	method blancoUtil(equipoRival) = true
 

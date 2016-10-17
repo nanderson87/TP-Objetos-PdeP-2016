@@ -54,9 +54,9 @@ class Jugador {
 	
 	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2 
 	
-	method hacerJugada(equipoRival) {}
+	method hacerJugada(equipoRival)
 	
-	method blancoUtil(equipoRival) = true
+	method blancoUtil(equipoRival)
 
 	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || suerte.tieneSuerte()
 	

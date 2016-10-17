@@ -36,10 +36,13 @@ class Equipo {
 		return self.ordenarPorMasVeloz().filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})
 	}
 	
+	method bloqueadorDe(cazadorEnemigo){
+		return self.jugadoresQuePuedenBloquearA(cazadorEnemigo).findOrElse({bloquea => true}, {throw new NoPudeBloquear()})
+	}
+	
 	method bloquear(cazadorEnemigo) 
 		{
-			var bloqueador = self.jugadoresQuePuedenBloquearA(cazadorEnemigo).findOrElse({bloquea => true}, {throw new NoPudeBloquear()})
-			bloqueador.ganarSkillsPorBloqueo()
+			self.bloqueadorDe(cazadorEnemigo).ganarSkillsPorBloqueo()
 		}
 		
 		method ganarPuntos(cuantos){

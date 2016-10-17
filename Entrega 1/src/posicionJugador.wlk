@@ -73,10 +73,6 @@ class Guardian inherits Jugador{
 		
 	}
 	override method hacerJugada(equipoRival){}
-	
-	method bloquear(){
-		skills += 10
-	}	
 
 	override method ganarSkillsPorBloqueo() {
 		self.skills((self.skills() + 10))

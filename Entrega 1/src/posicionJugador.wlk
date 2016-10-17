@@ -24,7 +24,13 @@ class Cazador inherits Jugador {
 		}
 		tengoQuaffle = false
 		equipo.obtenerLaQuaffle()
-		
+	}
+	
+	override method golpearPorBludger(rival){
+		super(rival)
+		if(tengoQuaffle){
+			self.perderQuaffleContra(rival.miEquipo())
+		}
 	}
 }
 

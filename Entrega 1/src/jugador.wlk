@@ -37,7 +37,7 @@ class Jugador {
 	
 	method soyGroso(equipo) =  self.habilidad() > equipo.habilidadPromedio() && self.velocidad() >=  mercadoDeEscobas.velocidadEstablecida()
 
-	method golpearPorBludger() {
+	method golpearPorBludger(rival) {
 		skills -= 2
 		escoba.golpearPorBludger() 
 	} 

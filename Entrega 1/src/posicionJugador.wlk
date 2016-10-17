@@ -1,4 +1,5 @@
 import jugador.*
+import suerte.*
 
 class Cazador inherits Jugador {
 	var punteria
@@ -25,7 +26,7 @@ class Guardian inherits Jugador{
 
 class Golpeador inherits Jugador{
 	var punteria
-		constructor( _skills,_peso, _fuerza, _escoba,_punteria ) = super( _skills,_peso, _fuerza, _escoba )
+		constructor( _skills,_peso, _fuerza, _escoba, miEquipo,_tengoQuaffle, _punteria ) = super( _skills,_peso, _fuerza, _escoba, _miEquipo, _tengoQuaflle)
 	{
 		punteria = _punteria
 	}
@@ -33,7 +34,18 @@ class Golpeador inherits Jugador{
 	
 	override method habilidad() = super()+ punteria + fuerza
 	
+	override method hacerJugada(equipoRival) {
+		var miBlanco = equipoRival.filter({j => j.blancoUtil(self.miEquipo())}).max({b => b.habilidad()})
+		if (( miBlanco.reflejo() < punteria ) or suerte.tieneSuerte()){
+			miBlanco.golpearPorBludger()
+			skills += 5 
+		}
+	}
 	
+	method bloquear() {
+		skills += 3
+	}
+
 }
 
 class Buscador  inherits Jugador{

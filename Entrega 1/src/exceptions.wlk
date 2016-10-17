@@ -1,0 +1,1 @@
+class NoTengoQuaffle inherits Exception{}

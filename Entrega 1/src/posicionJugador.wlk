@@ -1,4 +1,5 @@
 import jugador.*
+import exceptions.*
 
 class Cazador inherits Jugador {
 	var punteria
@@ -15,6 +16,15 @@ class Cazador inherits Jugador {
 	
 	method obtenerLaQuaffle(){
 		tengoQuaffle = true
+	}
+	
+	method perderQuaffleContra(equipo){
+		if(!tengoQuaffle){
+			throw new NoTengoQuaffle()
+		}
+		tengoQuaffle = false
+		equipo.obtenerLaQuaffle()
+		
 	}
 }
 

@@ -38,7 +38,8 @@ class Equipo {
 		 			if (bloqueador != null)
 						{
 							bloqueador.ganarSkillsPorBloqueo()
-							cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)					
+							cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)
+							puntaje += 10					
 						}
 					else
 						{

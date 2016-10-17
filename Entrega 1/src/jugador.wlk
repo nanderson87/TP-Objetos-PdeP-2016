@@ -10,17 +10,15 @@ class Jugador {
 	var fuerza
 	var escoba
 	var miEquipo		
-	var tengoQuaffle
+	var tengoQuaffle = false
 	
 	 
-	constructor( _skills,_peso, _fuerza, _escoba, _miEquipo, _tengoQuaffle ){
+	constructor( _skills,_peso, _fuerza, _escoba ){
 		
 		skills = _skills
 		peso = _peso
 		fuerza = _fuerza
 		escoba = _escoba
-		miEquipo = _miEquipo
-		tengoQuaffle = _tengoQuaffle
 	}
 	
 	method skills()= skills 

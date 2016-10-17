@@ -51,4 +51,8 @@ class Equipo {
 				}
 				cazadorEnemigo.tengoQuaffle(false)
 		}	
+		
+		method ganarPuntos(cuantos){
+			puntaje += cuantos
+		}
 }

@@ -12,13 +12,12 @@ class Jugador {
 	var tengoQuaffle = false
 	
 	 
-	constructor( _skills,_peso, _fuerza, _escoba ){
+	constructor( _skills,_peso, _fuerza, _escoba){
 		
 		skills = _skills
 		peso = _peso
 		fuerza = _fuerza
-		escoba = _escoba
-		
+		escoba = _escoba		
 	}
 	
 	method skills()= skills 
@@ -31,7 +30,7 @@ class Jugador {
 	
 	method miEquipo(cual){
 		miEquipo = cual
-	}		
+	}
 	
 	method nivelManejoDeEscoba() = skills / peso
 
@@ -48,15 +47,17 @@ class Jugador {
 		escoba.golpearPorBludger() 
 	} 
 	
-	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2 
+	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2
+	
+	method soyJugadorEstrellaContra(equipoRival) = equipoRival.all({j => self.lePasaElTrapo(j)}) 
 	
 	method tieneLaQuaffle() = tengoQuaffle
 	
 	method puedoObtenerQuaffle() = false
 	
-	method hacerJugada()
+	method hacerJugada(equipoRival)
 	
-	method blancoUtil()
+	method blancoUtil(equipoRival) = self.soyJugadorEstrellaContra(equipoRival)
 	
 	method puedeBloquear() //TODO, los buscadores tienen que hacerle un override y retornar false
 	

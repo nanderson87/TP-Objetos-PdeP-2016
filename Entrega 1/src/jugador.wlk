@@ -57,7 +57,7 @@ class Jugador {
 	
 	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2
 	
-	method soyJugadorEstrellaContra(equipoRival) = equipoRival.all({j => self.lePasaElTrapo(j)}) 
+	method soyJugadorEstrellaContra(equipoRival) = equipoRival.jugadores().all({j => self.lePasaElTrapo(j)}) 
 	
 	method tieneLaQuaffle() = tengoQuaffle
 	

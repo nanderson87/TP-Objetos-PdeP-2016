@@ -8,7 +8,7 @@ class Jugador {
 	var peso
 	var fuerza
 	var escoba
-	var miEquipo		//TODO a ser seteado por el constructor de equipo
+	var miEquipo
 	var tengoQuaffle = false
 	
 	 
@@ -25,7 +25,13 @@ class Jugador {
 
 	method fuerza() = fuerza
 	
-	method escoba() = escoba			
+	method escoba() = escoba	
+	
+	method miEquipo() = miEquipo
+	
+	method miEquipo(cual){
+		miEquipo = cual
+	}		
 	
 	method nivelManejoDeEscoba() = skills / peso
 

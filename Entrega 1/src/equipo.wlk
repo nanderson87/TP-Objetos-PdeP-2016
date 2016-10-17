@@ -7,8 +7,9 @@ class Equipo {
 	var jugadores
 	var puntaje = 0
 	
-	constructor (_jugadores ){	//TODO mandarle mensaje a los jugadores seteando el equipo
+	constructor (_jugadores ){
 		jugadores = _jugadores
+		jugadores.forEach({jugador=>jugador.miEquipo(self)})
 		 
 	}
 	

@@ -9,7 +9,7 @@ class Jugador {
 	var fuerza
 	var escoba
 	var miEquipo		//TODO a ser seteado por el constructor de equipo
-	var tengoQuaffle
+	var tengoQuaffle = false
 	
 	 
 	constructor( _skills,_peso, _fuerza, _escoba ){
@@ -43,6 +43,8 @@ class Jugador {
 	} 
 	
 	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2 
+	
+	method tieneLaQuaffle() = tengoQuaffle
 	
 	method hacerJugada()
 	

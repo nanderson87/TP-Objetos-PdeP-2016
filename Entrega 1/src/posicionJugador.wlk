@@ -13,7 +13,13 @@ class Cazador inherits Jugador {
 	
 	override method blancoUtil(equipoRival) = super(equipoRival) || self.tengoQuaffle()
 	
-	override method hacerJugada(equipoRival) { if (self.tengoQuaffle()) {super(equipoRival)} }
+	override method hacerJugada(equipoRival) 
+	{
+		if (self.tengoQuaffle()) 
+			{
+				equipoRival.bloquear(self)
+			}
+	}
 }
 
 class Guardian inherits Jugador{

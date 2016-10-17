@@ -38,12 +38,12 @@ class Equipo {
 		 			if (bloqueador != null)
 						{
 							bloqueador.ganarSkillsPorBloqueo()
-							cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)
-							puntaje += 10					
+							cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)				
 						}
 					else
 						{
-							cazadorEnemigo.skills(cazadorEnemigo.skills() + 5)					
+							cazadorEnemigo.skills(cazadorEnemigo.skills() + 5)
+							puntaje += 10						
 						}
 						cazadorEnemigo.tengoQuaffle(false)
 						

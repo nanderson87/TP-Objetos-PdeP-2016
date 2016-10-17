@@ -2,6 +2,7 @@ import jugador.*
 import mercadoDeEscobas.*
 import escobas.*
 import posicionJugador.*
+import exceptions.*
 
 class Equipo {
 	var jugadores
@@ -30,27 +31,16 @@ class Equipo {
 	method jugadorEstrellaContra(equipoRival) = jugadores.any({j => j.soyJugadorEstrellaContra(equipoRival)})
 
 	method ordenarPorMasVeloz() = jugadores.sortedBy({unJugador, otroJugador => unJugador.velocidad() > otroJugador.velocidad()})
-		
+	
+	method	jugadoresQuePuedenBloquearA(cazadorEnemigo){
+		return self.ordenarPorMasVeloz().filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})
+	}
+	
 	method bloquear(cazadorEnemigo) 
 		{
-			var lOrdenada = new List()
-			var bloqueador 
-			lOrdenada = self.ordenarPorMasVeloz()	
-		
-			lOrdenada = lOrdenada.filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})		
-			bloqueador = lOrdenada.findOrElse({bloquea => true}, {null})
-		
-			if (bloqueador != null)
-				{
-					bloqueador.ganarSkillsPorBloqueo()
-					cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)					
-				}
-			else
-				{
-					cazadorEnemigo.skills(cazadorEnemigo.skills() + 5)					
-				}
-				cazadorEnemigo.tengoQuaffle(false)
-		}	
+			var bloqueador = self.jugadoresQuePuedenBloquearA(cazadorEnemigo).findOrElse({bloquea => true}, {throw new NoPudeBloquear()})
+			bloqueador.ganarSkillsPorBloqueo()
+		}
 		
 		method ganarPuntos(cuantos){
 			puntaje += cuantos

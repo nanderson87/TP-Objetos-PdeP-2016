@@ -20,4 +20,5 @@ class Equipo {
 	
 	method jugadorEstrellaContra(equipoRival) = jugadores.any({d => equipoRival.jugadores().all({e => d.lePasaElTrapo(e)})})
 	
+	method tieneLaQuaffle() = jugadores.any({jugador=>jugador.tieneLaQuaffle()})
 }

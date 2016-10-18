@@ -3,6 +3,7 @@ import jugador.*
 import posicionJugador.*
 import equipo.*
 import fixture.*
+import suerte.*
 
 
 test "La velocidad de una escoba Nimbus es (80 - su edad) * % de salud" {
@@ -83,4 +84,28 @@ test "Si Ron es golpeado por una bludger sus skills pasan a ser 28 y su Nimbus q
 test "Si Ron es golpeado por una bludger su Nimbus queda con 40% de salud."{
 	fixture.ronWeasley().golpearPorBludger(null)
 	assert.equals(40, fixture.ronWeasley().escoba().salud())
+}
+
+test "Si Ginny tiene la Quaffle, Gryffindor debería tenerla y no Slytherin"{
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	
+	assert.that(fixture.gryffindor().tieneLaQuaffle() && !fixture.slytherin().tieneLaQuaffle())
+}
+
+test "Si Ginny pierde la Quaffle contra Slytherin, Warrington debería tenerla y no Ginny"{
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	fixture.ginnyWeasley().perderQuaffleContra(fixture.slytherin())
+	
+	assert.that(!fixture.ginnyWeasley().tieneLaQuaffle() && fixture.warrington().tieneLaQuaffle())
+}
+
+test "Si ron cambia la escoba por una nimbus 2016 en perfecto estado bloquea a Montagne con mala suerte"{
+	fixture.ronWeasley().escoba(new Nimbus(2016,100))
+	fixture.ronWeasley().suerte(buenaSuerte)
+	fixture.grahamMontague().suerte(malaSuerte)
+	fixture.grahamMontague().obtenerLaQuaffle()
+	
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.ronWeasley().skills() == 40 && fixture.grahamMontague().skills() == 32)
 }

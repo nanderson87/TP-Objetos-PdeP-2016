@@ -11,6 +11,7 @@ class Jugador {
 	var escoba
 	var miEquipo
 	var tengoQuaffle = false
+	var miSuerte = malaSuerte
 	
 	 
 	constructor( _skills,_peso, _fuerza, _escoba){
@@ -26,7 +27,13 @@ class Jugador {
 	
 	method tengoQuaffle() = tengoQuaffle
 	
+	method suerte() = miSuerte
+	
 	method tengoQuaffle(_tengoQuaffle) {tengoQuaffle = _tengoQuaffle}
+	
+	method suerte(_suerte){
+		miSuerte = _suerte
+	}
 	
 	method ganarSkillsPorBloqueo() { self.skills((self.skills() + 3)) }
 
@@ -38,6 +45,10 @@ class Jugador {
 	
 	method miEquipo(cual){
 		miEquipo = cual
+	}
+	
+	method escoba(_escoba){
+		escoba = _escoba
 	}
 		
 	method nivelManejoDeEscoba() = skills / peso
@@ -67,6 +78,6 @@ class Jugador {
 	
 	method blancoUtil(equipoRival) = self.soyJugadorEstrellaContra(equipoRival)
 	
-	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || suerte.tieneSuerte()
+	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || self.suerte().tieneSuerte()
 	
 }

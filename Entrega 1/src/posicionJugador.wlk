@@ -37,7 +37,7 @@ class Cazador inherits Jugador {
 	override method blancoUtil(equipoRival) = super(equipoRival) || self.tengoQuaffle()
 	
 	override method hacerJugada(equipoRival){
-		if(!tengoQuaffle){
+		if(tengoQuaffle){
 			self.perderQuaffleContra(equipoRival)
 			try{
 				equipoRival.bloquear(self)

@@ -12,23 +12,22 @@ class Jugador {
 	var miEquipo
 	var tengoQuaffle = false
 	
-	 
-	constructor( _skills,_peso, _fuerza, _escoba){
+	constructor(_skills, _peso, _fuerza, _escoba){
 		skills = _skills
 		peso = _peso
 		fuerza = _fuerza
 		escoba = _escoba
 	}
 	
-	method skills()= skills 
+	method skills() = skills 
 	
-	method skills(_skills) {skills = _skills}
+	method skills(_skills) { skills = _skills }
 	
 	method tengoQuaffle() = tengoQuaffle
 	
-	method tengoQuaffle(_tengoQuaffle) {tengoQuaffle = _tengoQuaffle}
+	method tengoQuaffle(_tengoQuaffle) { tengoQuaffle = _tengoQuaffle }
 	
-	method ganarSkillsPorBloqueo() { self.skills((self.skills() + 3)) }
+	method ganarSkillsPorBloqueo() { self.skills(self.skills() + 3) }
 
 	method fuerza() = fuerza
 	
@@ -36,7 +35,7 @@ class Jugador {
 	
 	method miEquipo() = miEquipo
 	
-	method miEquipo(cual){
+	method miEquipo(cual) {
 		miEquipo = cual
 	}
 		
@@ -48,16 +47,18 @@ class Jugador {
 
 	method reflejo() = ( self.velocidad() * self.skills() / 100 )
 	
-	method soyGroso(equipo) =  self.habilidad() > equipo.habilidadPromedio() && self.velocidad() >=  mercadoDeEscobas.velocidadEstablecida()
+	method soyGroso(equipo) = 
+		self.habilidad() > equipo.habilidadPromedio() && 
+		self.velocidad() >= mercadoDeEscobas.velocidadEstablecida() 
 
 	method golpearPorBludger(rival) {
 		skills -= 2
 		escoba.golpearPorBludger() 
 	} 
 	
-	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2
+	method lePasaElTrapo(jugador) = self.habilidad() >= jugador.habilidad() * 2
 	
-	method soyJugadorEstrellaContra(equipoRival) = equipoRival.jugadores().all({j => self.lePasaElTrapo(j)}) 
+	method soyJugadorEstrellaContra(equipoRival) =	equipoRival.jugadores().all({ j => self.lePasaElTrapo(j) })
 	
 	method tieneLaQuaffle() = tengoQuaffle
 	

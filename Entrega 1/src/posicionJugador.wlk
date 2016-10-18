@@ -6,8 +6,7 @@ import suerte.*
 class Cazador inherits Jugador {
 	var punteria
 	
-	constructor( _skills,_peso, _fuerza, _escoba,_punteria ) = super(_skills,_peso,_fuerza,_escoba )
-	{
+	constructor( _skills,_peso, _fuerza, _escoba,_punteria ) = super(_skills,_peso,_fuerza,_escoba ) {
 		punteria = _punteria
 	}
 	
@@ -15,23 +14,17 @@ class Cazador inherits Jugador {
 
 	override method puedoObtenerQuaffle() = true
 	
-	method obtenerLaQuaffle(){
-		tengoQuaffle = true
-	}
+	method obtenerLaQuaffle(){ tengoQuaffle = true }
 	
 	method perderQuaffleContra(equipo){
-		if(!tengoQuaffle){
-			throw new NoTengoQuaffle()
-		}
+		if(!tengoQuaffle){ throw new NoTengoQuaffle() }
 		tengoQuaffle = false
 		equipo.obtenerLaQuaffle()
 	}
 	
 	override method golpearPorBludger(rival){
 		super(rival)
-		if(tengoQuaffle){
-			self.perderQuaffleContra(rival.miEquipo())
-		}
+		if(tengoQuaffle){ self.perderQuaffleContra(rival.miEquipo()) }
 	}
 	
 	override method blancoUtil(equipoRival) = super(equipoRival) || self.tengoQuaffle()
@@ -70,7 +63,6 @@ class Guardian inherits Jugador{
 	
 	method obtenerLaQuaffle(){
 		miEquipo.jugadoresPuedenObtenerQuaffle().filter({jugador=>jugador != self}).max({jugador=>jugador.habilidad()})
-		
 	}
 	override method hacerJugada(equipoRival){}
 

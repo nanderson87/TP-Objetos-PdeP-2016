@@ -22,9 +22,9 @@ object fixture {
 	var dracoMalfoy = new Buscador( 27, 50, 30, new Nimbus(2001, 100), 7)
 	
 	
-	var slytherin = new Equipo( [adrianPucey, vincentCrabbe, grahamMontague, gregoryGoyle, warrington, milesBletchley,dracoMalfoy])
+	var slytherin = new Equipo([adrianPucey, vincentCrabbe, grahamMontague, gregoryGoyle, warrington, milesBletchley,dracoMalfoy])
 	
-	var gryffindor = new Equipo( [angelinaJohnson, fredWeasley, katieBell, georgeWeasley, ginnyWeasley, ronWeasley,harryPotter])
+	var gryffindor = new Equipo([angelinaJohnson, fredWeasley, katieBell, georgeWeasley, ginnyWeasley, ronWeasley,harryPotter])
 	
 	method gryffindor() = gryffindor
 	

@@ -5,7 +5,7 @@ object mercadoDeEscobas {
 
 	method velocidadEstablecida() = velocidadMinimaEstablecida
 	
-	method velocidadEstablecida( velocidad ){
+	method velocidadEstablecida(velocidad) {
 		velocidadMinimaEstablecida = velocidad
 	}
 

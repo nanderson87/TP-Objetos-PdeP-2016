@@ -2,6 +2,7 @@ import escobas.*
 import posicionJugador.*
 import equipo.*
 import mercadoDeEscobas.*
+import suerte.*
 
 class Jugador {
 	var skills
@@ -12,16 +13,22 @@ class Jugador {
 	var tengoQuaffle = false
 	
 	 
-	constructor( _skills,_peso, _fuerza, _escoba ){
-		
+	constructor( _skills,_peso, _fuerza, _escoba){
 		skills = _skills
 		peso = _peso
 		fuerza = _fuerza
 		escoba = _escoba
-		
 	}
 	
 	method skills()= skills 
+	
+	method skills(_skills) {skills = _skills}
+	
+	method tengoQuaffle() = tengoQuaffle
+	
+	method tengoQuaffle(_tengoQuaffle) {tengoQuaffle = _tengoQuaffle}
+	
+	method ganarSkillsPorBloqueo() { self.skills((self.skills() + 3)) }
 
 	method fuerza() = fuerza
 	
@@ -31,8 +38,8 @@ class Jugador {
 	
 	method miEquipo(cual){
 		miEquipo = cual
-	}		
-	
+	}
+		
 	method nivelManejoDeEscoba() = skills / peso
 
 	method velocidad()= escoba.velocidad() * self.nivelManejoDeEscoba() 
@@ -48,16 +55,18 @@ class Jugador {
 		escoba.golpearPorBludger() 
 	} 
 	
-	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2 
+	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2
+	
+	method soyJugadorEstrellaContra(equipoRival) = equipoRival.jugadores().all({j => self.lePasaElTrapo(j)}) 
 	
 	method tieneLaQuaffle() = tengoQuaffle
 	
 	method puedoObtenerQuaffle() = false
 	
-	method hacerJugada()
+	method hacerJugada(equipoRival)
 	
-	method blancoUtil()
+	method blancoUtil(equipoRival) = self.soyJugadorEstrellaContra(equipoRival)
 	
-	method puedeBloquear() //TODO, los buscadores tienen que hacerle un override y retornar false
+	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || suerte.tieneSuerte()
 	
 }

@@ -2,35 +2,44 @@ import escobas.*
 import posicionJugador.*
 import equipo.*
 import mercadoDeEscobas.*
+import suerte.*
 
 class Jugador {
 	var skills
 	var peso
 	var fuerza
 	var escoba
-	var miEquipo		//TODO a ser seteado por el constructor de equipo
-	var tengoQuaffle
+	var miEquipo
+	var tengoQuaffle = false
 	
 	 
-	constructor( _skills,_peso, _fuerza, _escoba, _miEquipo, _tengoQuaffle ){
-		
+	constructor( _skills,_peso, _fuerza, _escoba){
 		skills = _skills
 		peso = _peso
 		fuerza = _fuerza
 		escoba = _escoba
-		miEquipo = _miEquipo
-		tengoQuaffle = _tengoQuaffle
-		
 	}
 	
 	method skills()= skills 
+	
+	method skills(_skills) {skills = _skills}
+	
+	method tengoQuaffle() = tengoQuaffle
+	
+	method tengoQuaffle(_tengoQuaffle) {tengoQuaffle = _tengoQuaffle}
+	
+	method ganarSkillsPorBloqueo() { self.skills((self.skills() + 3)) }
 
 	method fuerza() = fuerza
 	
-	method escoba() = escoba
+	method escoba() = escoba	
 	
-	method miEquipo() = miEquipo			
+	method miEquipo() = miEquipo
 	
+	method miEquipo(cual){
+		miEquipo = cual
+	}
+		
 	method nivelManejoDeEscoba() = skills / peso
 
 	method velocidad()= escoba.velocidad() * self.nivelManejoDeEscoba() 
@@ -41,19 +50,23 @@ class Jugador {
 	
 	method soyGroso(equipo) =  self.habilidad() > equipo.habilidadPromedio() && self.velocidad() >=  mercadoDeEscobas.velocidadEstablecida()
 
-	method golpearPorBludger() {
+	method golpearPorBludger(rival) {
 		skills -= 2
 		escoba.golpearPorBludger() 
 	} 
 	
 	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2
 	
-	method soyJugadorEstrellaContra(equipoRival) = equipoRival.all({j => self.lePasaElTrapo(j)}) 
+	method soyJugadorEstrellaContra(equipoRival) = equipoRival.jugadores().all({j => self.lePasaElTrapo(j)}) 
+	
+	method tieneLaQuaffle() = tengoQuaffle
+	
+	method puedoObtenerQuaffle() = false
 	
 	method hacerJugada(equipoRival)
 	
 	method blancoUtil(equipoRival) = self.soyJugadorEstrellaContra(equipoRival)
 	
-	method puedeBloquear() //TODO, los buscadores tienen que hacerle un override y retornar false
+	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || suerte.tieneSuerte()
 	
 }

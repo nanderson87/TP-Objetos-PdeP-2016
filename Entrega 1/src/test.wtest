@@ -72,17 +72,17 @@ test "Gryffindor NO tiene jugador estrella contra Slytherin"{
 }
 
 test "Si Crabbe es golpeado por una bludger sus skills pasan a ser 78."{
-	fixture.vincentCrabbe().golpearPorBludger()
+	fixture.vincentCrabbe().golpearPorBludger(null)
 	assert.equals(78,fixture.vincentCrabbe().skills())
 }
 
 test "Si Ron es golpeado por una bludger sus skills pasan a ser 28 y su Nimbus queda con 40% de salud."{
-	fixture.ronWeasley().golpearPorBludger()
+	fixture.ronWeasley().golpearPorBludger(null)
 	assert.equals(28, fixture.ronWeasley().skills())
 }
 
 test "Si Ron es golpeado por una bludger su Nimbus queda con 40% de salud."{
-	fixture.ronWeasley().golpearPorBludger()
+	fixture.ronWeasley().golpearPorBludger(null)
 	assert.equals(40, fixture.ronWeasley().escoba().salud())
 }
 

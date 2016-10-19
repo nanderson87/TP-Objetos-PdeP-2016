@@ -10,11 +10,14 @@ class Equipo {
 	
 	constructor (_jugadores ){
 		jugadores = _jugadores
-
 		jugadores.forEach({jugador=>jugador.miEquipo(self)})
 	}
 	
 	method jugadores() = jugadores
+			
+	method ganarPuntos(cuantos){
+		puntaje += cuantos
+	}
 	
 	method habilidadPromedio() = jugadores.sum({unJugador => unJugador.habilidad()}) / jugadores.size()
 	
@@ -40,12 +43,8 @@ class Equipo {
 		return self.jugadoresQuePuedenBloquearA(cazadorEnemigo).findOrElse({bloquea => true}, {throw new NoPudeBloquear()})
 	}
 	
-	method bloquear(cazadorEnemigo) 
-		{
-			self.bloqueadorDe(cazadorEnemigo).ganarSkillsPorBloqueo()
-		}
-		
-		method ganarPuntos(cuantos){
-			puntaje += cuantos
-		}
+	method bloquear(cazadorEnemigo){
+		self.bloqueadorDe(cazadorEnemigo).ganarSkillsPorBloqueo()
+	}
+	
 }

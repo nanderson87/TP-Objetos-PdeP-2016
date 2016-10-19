@@ -92,3 +92,11 @@ test "Si Ginny que es cazadora obtiene la Quaffle,
 	
 	assert.that(fixture.ginnyWeasley().tengoQuaffle())
 }
+
+test "Si la Quaffle está en manos de Ginny, 
+	Katie no debería poder perder la Quaffle contra Slytherin." {
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	
+	assert.throwsExceptionLike( new NoTengoQuaffle(),
+          { => fixture.katieBell().perderQuaffleContra( fixture.slytherin() )} ) 
+}

@@ -24,10 +24,6 @@ class Jugador {
 	
 	method skills(_skills) {skills = _skills}
 	
-	method tengoQuaffle() = tengoQuaffle
-	
-	method tengoQuaffle(_tengoQuaffle) {tengoQuaffle = _tengoQuaffle}
-	
 	method ganarSkillsPorBloqueo() { self.skills((self.skills() + 3)) }
 
 	method fuerza() = fuerza

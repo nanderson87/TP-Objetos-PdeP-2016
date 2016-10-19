@@ -94,12 +94,15 @@ class Buscador  inherits Jugador{
 	var vision
 	var actividad	// Un objeto para busqueda y otro para persecucion
 	
-	constructor(_skills,_peso,_fuerza,_escoba,_vision) = super(_skills,_peso,_fuerza,_escoba)
-	{
+	constructor(_skills,_peso,_fuerza,_escoba,_vision) = super(_skills,_peso,_fuerza,_escoba) {
 		vision = _vision
 	}
 	
 	override method habilidad() = super() + self.reflejo() * vision 
 
 	override method puedeBloquear(cazadorEnemigo) = false
+	
+	override method hacerJugada(equipoRival) {
+		//TODO: 
+	}
 }

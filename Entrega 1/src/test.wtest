@@ -3,6 +3,7 @@ import jugador.*
 import posicionJugador.*
 import equipo.*
 import fixture.*
+import suerte.*
 
 
 test "La velocidad de una escoba Nimbus es (80 - su edad) * % de salud" {
@@ -83,4 +84,11 @@ test "Si Ron es golpeado por una bludger sus skills pasan a ser 28 y su Nimbus q
 test "Si Ron es golpeado por una bludger su Nimbus queda con 40% de salud."{
 	fixture.ronWeasley().golpearPorBludger()
 	assert.equals(40, fixture.ronWeasley().escoba().salud())
+}
+
+test "Si Ginny que es cazadora obtiene la Quaffle, 
+	debería ser ella quien tiene la Quaffle." {
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	
+	assert.that(fixture.ginnyWeasley().tengoQuaffle())
 }

@@ -30,6 +30,7 @@ class Guardian inherits Jugador{
 		skills += 10
 	}
 	
+	override method blancoUtil( equipoRival ) = super( equipoRival ) or !self.miEquipo().tieneLaQuaffle()
 	
 }
 

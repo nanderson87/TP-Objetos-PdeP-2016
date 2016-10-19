@@ -11,6 +11,7 @@ class Jugador {
 	var escoba
 	var miEquipo
 	var tengoQuaffle = false
+	var miSuerte = malaSuerte
 	
 	 
 	constructor( _skills,_peso, _fuerza, _escoba){
@@ -27,6 +28,12 @@ class Jugador {
 	method escoba() = escoba	
 	
 	method miEquipo() = miEquipo
+	
+	method suerte() = miSuerte
+	
+	method suerte(_suerte){
+		miSuerte = _suerte
+	}
 		
 	method tieneLaQuaffle() = tengoQuaffle
 	
@@ -61,7 +68,7 @@ class Jugador {
 
 	method blancoUtil(equipoRival) = self.soyJugadorEstrellaContra(equipoRival)
 	
-	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || suerte.tieneSuerte()
+	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || self.suerte() == buenaSuerte
 		
 	method ganarSkillsPorBloqueo(){
 		self.skills((self.skills() + 3))

@@ -26,6 +26,11 @@ class Cazador inherits Jugador {
 		equipo.obtenerLaQuaffle()
 	}
 	
+	method hacerGol()
+	{
+		self.miEquipo().ganarPuntos(10)
+	}
+	
 	override method golpearPorBludger(rival){
 		super(rival)
 		if(tengoQuaffle){
@@ -36,34 +41,26 @@ class Cazador inherits Jugador {
 	override method blancoUtil(equipoRival) = super(equipoRival) || self.tieneLaQuaffle()
 	
 	override method hacerJugada(equipoRival){
-		if(!tengoQuaffle){
+		if(tengoQuaffle){
 			self.perderQuaffleContra(equipoRival)
 			try{
 				equipoRival.bloquear(self)
 				self.perderSkillsPorBloqueo()
 			}catch e:NoPudeBloquear{
 				self.hacerGol()
+				self.ganarSkillsPorGol()
 			}
 		}
+	}
+	
+	method ganarSkillsPorGol(){
+		skills +=5
 	}
 	
 	method perderSkillsPorBloqueo(){
 		skills -= 3
 	}
 	
-<<<<<<< HEAD
-	override method hacerJugada(equipoRival) 
-	{
-		if (self.tengoQuaffle()) 
-			{
-				equipoRival.bloquear(self)
-			}
-=======
-	method hacerGol(){
-		skills += 5
-		miEquipo.ganarPuntos(10)
->>>>>>> refs/remotes/origin/Entrega-2
-	}
 }
 
 class Guardian inherits Jugador{
@@ -116,4 +113,8 @@ class Buscador  inherits Jugador{
 	override method habilidad() = super() + self.reflejo() * vision 
 
 	override method puedeBloquear(cazadorEnemigo) = false
+	
+	override method hacerJugada(equipoRival){
+		
+	}
 }

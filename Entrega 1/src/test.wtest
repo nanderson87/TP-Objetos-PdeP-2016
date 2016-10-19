@@ -3,6 +3,7 @@ import jugador.*
 import posicionJugador.*
 import equipo.*
 import fixture.*
+import suerte.*
 
 
 test "La velocidad de una escoba Nimbus es (80 - su edad) * % de salud" {
@@ -83,4 +84,34 @@ test "Si Ron es golpeado por una bludger sus skills pasan a ser 28 y su Nimbus q
 test "Si Ron es golpeado por una bludger su Nimbus queda con 40% de salud."{
 	fixture.ronWeasley().golpearPorBludger(null)
 	assert.equals(40, fixture.ronWeasley().escoba().salud())
+}
+
+test "Si Miles tiene la Quaffle, Graham deberia tenerla"{
+	fixture.milesBletchley().obtenerLaQuaffle()
+	
+	assert.that(fixture.grahamMontague().tieneLaQuaffle())
+}
+
+test "Si Ginny tiene la Quaffle y es golpeada por una Bludger de Slytherin, Slytherin deberia obtener la quaffle" {
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	fixture.ginnyWeasley().golpearPorBludger(fixture.vincentCrabbe())
+	assert.that(!fixture.ginnyWeasley().tieneLaQuaffle() && fixture.slytherin().tieneLaQuaffle())
+}
+
+test "Un bloqueo de Slytherin a Katie, es siempre exitoso incluso con mala suerte, por que montague le pasa el trapo, katie queda con 42 skills y montague con 38" {
+	fixture.katieBell().obtenerLaQuaffle()
+	fixture.grahamMontague().suerte(malaSuerte)
+	fixture.katieBell().hacerJugada(fixture.slytherin())
+	
+	assert.that(fixture.grahamMontague().lePasaElTrapo(fixture.katieBell()) && fixture.katieBell().skills() == 42 && fixture.grahamMontague().skills() == 38)
+}
+
+test "si Montague tiene la Quaffle, y hace su jugada contra gryffindor y no lo bloquean por que tienen mala suerte, Montague queda con 40 de skills, Slytherin gana 10 puntos y gryffindor obtiene la quaffle"{
+	var puntajeViejo = fixture.slytherin().puntaje()
+	fixture.gryffindor().jugadores().forEach({j =>j.suerte(malaSuerte)})
+	fixture.grahamMontague().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.grahamMontague().skills() == 40 && fixture.slytherin().puntaje() == (puntajeViejo + 10) && fixture.gryffindor().tieneLaQuaffle())
+	
 }

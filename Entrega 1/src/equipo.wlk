@@ -19,6 +19,8 @@ class Equipo {
 		puntaje += cuantos
 	}
 	
+	method puntaje() = puntaje
+	
 	method habilidadPromedio() = jugadores.sum({unJugador => unJugador.habilidad()}) / jugadores.size()
 	
 	method jugadoresGrosos() = jugadores.filter({unJugador => unJugador.soyGroso(self)})
@@ -35,46 +37,6 @@ class Equipo {
 
 	method ordenarPorMasVeloz() = jugadores.sortedBy({unJugador, otroJugador => unJugador.velocidad() > otroJugador.velocidad()})
 	
-<<<<<<< HEAD
-	method quienBloqueaACazador(cazador) 
-		{
-					var lOrdenada = self.ordenarPorMasVeloz()				
-				
-					lOrdenada = lOrdenada.filter({bloqueador => bloqueador.puedeBloquear(cazador)})		
-					return lOrdenada.findOrElse({bloquea => true}, {null})
-		}
-	
-	method equipo() = jugadores.map({unJugador => unJugador.miEquipo(self)})
-	
-	method bloquear(cazadorEnemigo) 
-		{
-					var bloqueador = self.quienBloqueaACazador(cazadorEnemigo)	
-		 			if (bloqueador != null)
-						{
-							bloqueador.ganarSkillsPorBloqueo()
-							cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)				
-						}
-					else
-						{
-							cazadorEnemigo.skills(cazadorEnemigo.skills() + 5)
-							cazadorEnemigo.sumarPuntaje(10)					
-						}
-						cazadorEnemigo.tengoQuaffle(false)						
-		}
-	//OJO!!! SOLO PARA DEBUGEAR SI SE SUMAN SKILLS!!!!!!!!
-	//LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-	//LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-	//LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-	//LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-	method __bloquear(sbloqueador,cazadorEnemigo) 
-		{
-					sbloqueador.ganarSkillsPorBloqueo()
-					cazadorEnemigo.skills(cazadorEnemigo.skills() - 3)
-					cazadorEnemigo.tengoQuaffle(false)
-		}	
-	//LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-	//OJO!!! SOLO PARA DEBUGEAR SI SE SUMAN SKILLS!!!!!!!!
-=======
 	method	jugadoresQuePuedenBloquearA(cazadorEnemigo){
 		return self.ordenarPorMasVeloz().filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})
 	}
@@ -86,6 +48,6 @@ class Equipo {
 	method bloquear(cazadorEnemigo){
 		self.bloqueadorDe(cazadorEnemigo).ganarSkillsPorBloqueo()
 	}
->>>>>>> refs/remotes/origin/Entrega-2
+
 	
 }

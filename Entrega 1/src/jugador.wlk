@@ -22,13 +22,21 @@ class Jugador {
 	
 	method skills()= skills 
 	
-	method skills(_skills) {skills = _skills}
-	
 	method tengoQuaffle() = tengoQuaffle
 	
 	method tengoQuaffle(_tengoQuaffle) {tengoQuaffle = _tengoQuaffle}
 	
-	method ganarSkillsPorBloqueo() { self.skills((self.skills() + 3)) }
+	method aumentarSkills(cantidad) {
+		skills += cantidad
+	}
+	
+	method perderSkills(cantidad) {
+		skills -= cantidad
+	}
+	
+	method bloquear() {
+		self.aumentarSkills(3)
+	}
 
 	method fuerza() = fuerza
 	
@@ -51,7 +59,7 @@ class Jugador {
 	method soyGroso(equipo) =  self.habilidad() > equipo.habilidadPromedio() && self.velocidad() >=  mercadoDeEscobas.velocidadEstablecida()
 
 	method golpearPorBludger(rival) {
-		skills -= 2
+		self.perderSkills(2)
 		escoba.golpearPorBludger() 
 	} 
 	

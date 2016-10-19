@@ -4,6 +4,7 @@ import posicionJugador.*
 import equipo.*
 import fixture.*
 import suerte.*
+import exceptions.*
 
 
 test "La velocidad de una escoba Nimbus es (80 - su edad) * % de salud" {

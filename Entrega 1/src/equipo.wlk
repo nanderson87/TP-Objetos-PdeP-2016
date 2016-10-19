@@ -40,12 +40,11 @@ class Equipo {
 		return self.jugadoresQuePuedenBloquearA(cazadorEnemigo).findOrElse({bloquea => true}, {throw new NoPudeBloquear()})
 	}
 	
-	method bloquear(cazadorEnemigo) 
-		{
-			self.bloqueadorDe(cazadorEnemigo).ganarSkillsPorBloqueo()
-		}
+	method bloquear(cazadorEnemigo) {
+			self.bloqueadorDe(cazadorEnemigo).bloquear()
+	}
 		
-		method ganarPuntos(cuantos){
+	method ganarPuntos(cuantos){
 			puntaje += cuantos
-		}
+	}
 }

@@ -103,7 +103,7 @@ test "Un bloqueo de Slytherin a Katie, es siempre exitoso incluso con mala suert
 	fixture.grahamMontague().suerte(malaSuerte)
 	fixture.katieBell().hacerJugada(fixture.slytherin())
 	
-	assert.that(fixture.grahamMontague().lePasaElTrapo(fixture.katieBell()) && fixture.katieBell().skills() == 42 && fixture.grahamMontague().skills() == 38)
+	assert.that(fixture.katieBell().skills() == 42 && fixture.grahamMontague().skills() == 38)
 }
 
 test "si Montague tiene la Quaffle, y hace su jugada contra gryffindor y no lo bloquean por que tienen mala suerte, Montague queda con 40 de skills, Slytherin gana 10 puntos y gryffindor obtiene la quaffle"{

@@ -2,6 +2,7 @@ import jugador.*
 import mercadoDeEscobas.*
 import escobas.*
 import posicionJugador.*
+import exceptions.*
 
 class Equipo {
 	var jugadores
@@ -9,19 +10,32 @@ class Equipo {
 	
 	constructor (_jugadores ){
 		jugadores = _jugadores
-		self.equipo()
+		jugadores.forEach({jugador=>jugador.miEquipo(self)})
 	}
 	
 	method jugadores() = jugadores
+			
+	method ganarPuntos(cuantos){
+		puntaje += cuantos
+	}
 	
 	method habilidadPromedio() = jugadores.sum({unJugador => unJugador.habilidad()}) / jugadores.size()
 	
 	method jugadoresGrosos() = jugadores.filter({unJugador => unJugador.soyGroso(self)})
+		
+	method tieneLaQuaffle() = jugadores.any({jugador=>jugador.tieneLaQuaffle()})
 	
-	method jugadorEstrellaContra(equipoRival) = jugadores.any({d => equipoRival.jugadores().all({e => d.lePasaElTrapo(e)})})
+	method jugadoresPuedenObtenerQuaffle() = jugadores.filter({jugador=>jugador.puedoObtenerQuaffle()})
 	
+	method obtenerLaQuaffle(){
+		self.jugadoresPuedenObtenerQuaffle().max({jugador=>jugador.velocidad()}).obtenerLaQuaffle()
+	}
+
+	method jugadorEstrellaContra(equipoRival) = jugadores.any({j => j.soyJugadorEstrellaContra(equipoRival)})
+
 	method ordenarPorMasVeloz() = jugadores.sortedBy({unJugador, otroJugador => unJugador.velocidad() > otroJugador.velocidad()})
 	
+<<<<<<< HEAD
 	method quienBloqueaACazador(cazador) 
 		{
 					var lOrdenada = self.ordenarPorMasVeloz()				
@@ -60,5 +74,18 @@ class Equipo {
 		}	
 	//LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 	//OJO!!! SOLO PARA DEBUGEAR SI SE SUMAN SKILLS!!!!!!!!
+=======
+	method	jugadoresQuePuedenBloquearA(cazadorEnemigo){
+		return self.ordenarPorMasVeloz().filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})
+	}
+	
+	method bloqueadorDe(cazadorEnemigo){
+		return self.jugadoresQuePuedenBloquearA(cazadorEnemigo).findOrElse({bloquea => true}, {throw new NoPudeBloquear()})
+	}
+	
+	method bloquear(cazadorEnemigo){
+		self.bloqueadorDe(cazadorEnemigo).ganarSkillsPorBloqueo()
+	}
+>>>>>>> refs/remotes/origin/Entrega-2
 	
 }

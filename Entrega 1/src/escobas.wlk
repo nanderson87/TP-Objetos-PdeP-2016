@@ -2,18 +2,18 @@ class Nimbus {
 	var modelo
 	var salud
 	
-	constructor(c_modelo,c_salud) {
+	constructor(c_modelo,c_salud){
 		modelo = c_modelo
 		salud = c_salud
 	}
 	
-	method salud()= salud
+	method salud() = salud
 	
-	method velocidad() {
+	method velocidad(){
 		return (80 - (new Date().year() - modelo)) * (salud/100)
 	}
 	
-	method golpearPorBludger() {
+	method golpearPorBludger(){
 		salud -= 10
 	}
 }

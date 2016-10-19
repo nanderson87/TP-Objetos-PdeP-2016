@@ -69,7 +69,7 @@ class Guardian inherits Jugador{
 	override method puedoObtenerQuaffle() = true
 	
 	method obtenerLaQuaffle(){
-		miEquipo.jugadoresPuedenObtenerQuaffle().filter({jugador=>jugador != self}).max({jugador=>jugador.habilidad()})
+		miEquipo.jugadoresPuedenObtenerQuaffle().filter({jugador=>jugador != self}).max({jugador=>jugador.habilidad()}).obtenerLaQuaffle()
 		
 	}
 	override method hacerJugada(equipoRival){}

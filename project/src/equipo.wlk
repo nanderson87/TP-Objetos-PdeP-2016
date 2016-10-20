@@ -54,4 +54,8 @@ class Equipo {
 	method ganarPuntos(cuantos) {
 		puntaje += cuantos
 	}
+	
+	method suerte(cual){
+		jugadores.map({d=>d.suerte(cual)})
+	}
  }

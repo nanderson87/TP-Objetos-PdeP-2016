@@ -308,7 +308,7 @@ test "Un bloqueo de Gryffindor a Montague con mala suerte no es exitoso.
 
 test "Un bloqueo de Gryffindor a Montague con buena suerte es exitoso, 
 	con lo cual los skills de Montague quedan en 32 y los de Katie (la más veloz que puede bloquear) quedan en 48."{
-	suerte.tipoDeSuerte(buenaSuerte)
+	fixture.gryffindor().suerte(buenaSuerte)
 	fixture.grahamMontague().obtenerLaQuaffle()
 	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
 

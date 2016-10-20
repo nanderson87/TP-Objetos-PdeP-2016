@@ -30,7 +30,9 @@ class Equipo {
 	method jugadoresPuedenObtenerQuaffle() = jugadores.filter({jugador=>jugador.puedoObtenerQuaffle()})
 	
 	method obtenerLaQuaffle(){
+		if (!self.tieneLaQuaffle){
 		self.jugadoresPuedenObtenerQuaffle().max({jugador=>jugador.velocidad()}).obtenerLaQuaffle()
+		} else {throw new NoPuedoTenerOtraQuaffle()}
 	}
 
 	method jugadorEstrellaContra(equipoRival) = jugadores.any({j => j.soyJugadorEstrellaContra(equipoRival)})

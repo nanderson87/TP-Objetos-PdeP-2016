@@ -34,8 +34,6 @@ class Jugador {
 		miSuerte = _suerte
 	}
 	
-	method ganarSkillsPorBloqueo() { self.skills((self.skills() + 3)) }
-
 	method fuerza() = fuerza
 	
 	method escoba() = escoba	
@@ -50,19 +48,21 @@ class Jugador {
 		escoba = _escoba
 	}
 		
+	method tieneLaQuaffle() = tengoQuaffle
+
 	method nivelManejoDeEscoba() = skills / peso
 
 	method velocidad()= escoba.velocidad() * self.nivelManejoDeEscoba() 
 	
 	method habilidad() = self.velocidad() + self.skills()
 
-	method reflejo() = ( self.velocidad() * self.skills() / 100 )
+	method reflejo() = (self.velocidad() * self.skills() / 100)
 	
 	method soyGroso(equipo) = 
 		self.habilidad() > equipo.habilidadPromedio() && 
 		self.velocidad() >= mercadoDeEscobas.velocidadEstablecida() 
 
-	method golpearPorBludger(rival) {
+	method golpearPorBludger(rival){
 		skills -= 2
 		escoba.golpearPorBludger() 
 	} 
@@ -71,14 +71,16 @@ class Jugador {
 	
 	method soyJugadorEstrellaContra(equipoRival) =	equipoRival.jugadores().all({ j => self.lePasaElTrapo(j) })
 	
-	method tieneLaQuaffle() = tengoQuaffle
-	
 	method puedoObtenerQuaffle() = false
-	
-	method hacerJugada(equipoRival)
-	
+
 	method blancoUtil(equipoRival) = self.soyJugadorEstrellaContra(equipoRival)
-	
-	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || self.suerte().tieneSuerte()
+
+	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || self.suerte() == buenaSuerte
+		
+	method ganarSkillsPorBloqueo(){
+		self.skills((self.skills() + 3))
+	}
+		
+	method hacerJugada(equipoRival)
 	
 }

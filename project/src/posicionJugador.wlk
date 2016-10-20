@@ -92,7 +92,6 @@ class Golpeador inherits Jugador{
 
 /**
 * El objetivo de los buscadores a lo largo del partido es encontrar y atrapar la Snitch.
-* TODO: implementar turnos
 **/
 class Buscador  inherits Jugador{
 	var vision
@@ -122,13 +121,11 @@ class Buscador  inherits Jugador{
 
 	override method golpearPorBludger(rival) {
 		super(rival)
-		/* if(soyGroso(equipo)) {
-			aturdite();
+		if(self.soyGroso(self.miEquipo())) {
+			self.aturdite();
 		} else {
-			reiniciarBusqueda()
+			self.reiniciarBusqueda()
 		}
-		*/
-
 	}
 
 	method atrapaSnitch(){
@@ -156,6 +153,7 @@ object busqueda {
 	var turnos = 0
 
 	method hacete(velocidad){
+		turnos++
 		/* TODO: si su actividad actual es la búsqueda debe chequear tantas
 		 veces como turnos lleve buscando + su nivel de visión, para
 		saber si tiene suerte y así poder encontrar la Snitch.

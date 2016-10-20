@@ -128,18 +128,19 @@ test "Si ron cambia la escoba por una nimbus 2016 en perfecto estado bloquea a M
 
 test "Si Gryffindor tiene 30 puntos y harry está a 75 metros de la snitch, cuando harry hace su jugada, Gryffindor queda con 180 puntos y los skills de Harry quedan en 40"{
 	fixture.gryffindor().ganarPuntos(30)
+	fixture.harryPotter().actividad(new Persecucion())
 	fixture.harryPotter().actividad().distancia(75)
-	fixture.harryPotter().hacerJugada()
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
 	
 	assert.that(fixture.gryffindor().puntaje() == 180 && fixture.harryPotter().skills() == 40)
 }
 
 test "Si Goyle hace una jugada con Ginny teniendo la Quaffle y Harry buscando la snitch elige a Ginny pero con mala suerte falla"{
 	fixture.ginnyWeasley().obtenerLaQuaffle()
-	fixture.harryPotter().acrividad(new Busqueda())
+	fixture.harryPotter().actividad(new Busqueda())
 	fixture.gregoryGoyle().suerte(malaSuerte)
 	
-	fixture.gregoryGoyle().hacerJugada()
+	fixture.gregoryGoyle().hacerJugada(fixture.gryffindor())
 	
 	assert.that(fixture.gregoryGoyle().skills() == 70 && fixture.ginnyWeasley().tieneLaQuaffle())
 }

@@ -108,6 +108,7 @@ class Buscador  inherits Jugador{
 	}
 
 	method vision() = vision
+	method actividad() = actividad
 
 	override method habilidad() = super() + self.reflejo() * vision
 
@@ -118,9 +119,9 @@ class Buscador  inherits Jugador{
 			// ¿throw estaAturdido? Si voy por este camino borrar el else
 			self.recuperate()
 		} else {
-			actividad.hacete(self.velocidad())
-			if (actividad.encontroSnitch()){ self.actividad(new Persecucion())}
-			if (actividad.puedeAtraparLaSnitch()){ self.atrapaSnitch() }
+			actividad.hacete(self)
+			if (actividad.pudoEncontrarSnitch(self)){ self.actividad(new Persecucion())}
+			actividad.intentarAtraparSnitch(self)
 		}
 	}
 
@@ -135,7 +136,7 @@ class Buscador  inherits Jugador{
 		}
 	}
 
-	method atrapaSnitch(){
+	method atraparSnitch(){
 		self.miEquipo().ganarPuntos(150);
 		self.aumentarSkills(30)
 	}

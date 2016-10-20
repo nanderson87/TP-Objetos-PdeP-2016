@@ -20,6 +20,8 @@ class Busqueda {
 	}
 	
 	method cercaDeLaSnitch() = false
+	
+	method distancia() = 5000
 }
 
 
@@ -29,7 +31,7 @@ class Persecucion {
 	method metrosARecorrer() = metrosARecorrer
 	
 	method intentarAtraparSnitch(jugador){
-		if(metrosARecorrer == 0){
+		if(metrosARecorrer <= 0){
 			jugador.atraparSnitch()
 		}
 	}
@@ -46,4 +48,10 @@ class Persecucion {
 	}
 
 	method cercaDeLaSnitch() =  metrosARecorrer < 1000
+	
+	method distancia() = metrosARecorrer
+	
+	method distancia(cuanto){
+		metrosARecorrer = cuanto
+	}
 }

@@ -16,6 +16,8 @@ class Equipo {
 	
 	method jugadores() = jugadores
 	
+	method puntaje() = puntaje
+	
 	method habilidadPromedio() = jugadores.sum({unJugador => unJugador.habilidad()}) / jugadores.size()
 	
 	method jugadoresGrosos() = jugadores.filter({unJugador => unJugador.soyGroso(self)})

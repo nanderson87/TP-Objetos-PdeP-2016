@@ -124,15 +124,15 @@ test "Si Goyle hace una jugada contra Gryffindor,
 	assert.that(fixture.gregoryGoyle().skills()== 75 and !fixture.ginnyWeasley().tieneLaQuaffle())
 }
 
-//test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la Snitch.
-	//Si Harry está persiguiendo la Snitch estando a 4000 metros de distancia de atraparla y hace una jugada contra Slytherin, queda a 3900 metros de distancia." {
-	//suerte.tipoDeSuerte(buenaSuerte)
-	//fixture.harryPotter().hacerJugada(fixture.slytherin())
-	//suerte.tipoDeSuerte(suerteReal)
-	//fixture.harryPotter().hacerJugada(fixture.slytherin())
-	
-	//assert.that(fixture.harryPotter().encontroSnitch()and fixture.harryPotter().actividad().metrosARecorrer() == 4000)
-//}
+test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la Snitch.
+	Si Harry está persiguiendo la Snitch estando a 4000 metros de distancia de atraparla y hace una jugada contra Slytherin, queda a 3900 metros de distancia." {
+	suerte.tipoDeSuerte(buenaSuerte)
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+	suerte.tipoDeSuerte(suerteReal)
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+
+	assert.that(fixture.harryPotter().encontroSnitch() and fixture.harryPotter().actividad().metrosARecorrer() == 5000 - fixture.harryPotter().velocidad() * 2)
+}
 
 test "Si Goyle hace una jugada contra Gryffindor, 
 	con Ginny teniendo la Quaffle y Harry buscando la Snitch, elige como blanco a Ginny (único blanco útil de Gryffindor). 

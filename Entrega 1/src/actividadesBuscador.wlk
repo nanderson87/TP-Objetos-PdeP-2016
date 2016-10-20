@@ -10,7 +10,7 @@ class Busqueda {
 		turnos += 1
 	}
 	
-	method pudoEncontrarSnitch(jugador) = (1..(turnos + jugador.vision())).map(suerte.tieneSuerte()).any()  
+	method pudoEncontrarSnitch(jugador) = (1..(turnos + jugador.vision())).any({t => suerte.tieneSuerte()})  
 
 	method hacete(jugador){
 		self.aumentarTurno()

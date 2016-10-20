@@ -87,9 +87,9 @@ class Golpeador inherits Jugador{
 	override method habilidad() = super()+ punteria + fuerza
 
 	override method hacerJugada(equipoRival){
-		var miBlanco = equipoRival.filter({j => j.blancoUtil(self.miEquipo())}).max({b => b.habilidad()})
-		if (( miBlanco.reflejo() < punteria ) or suerte.tieneSuerte()){
-			miBlanco.golpearPorBludger()
+		var miBlanco = equipoRival.jugadores().filter({j => j.blancoUtil(self.miEquipo())}).max({b => b.habilidad()})
+		if(miBlanco.reflejo() < punteria or suerte.tieneSuerte()){
+			miBlanco.golpearPorBludger(self)
 			self.aumentarSkills(5)  
 		}
 	}

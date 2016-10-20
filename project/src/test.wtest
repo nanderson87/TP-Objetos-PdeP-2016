@@ -205,7 +205,7 @@ test "un bloqueo de gryffindor a montague con buena suerte sera exitoso"{
 // A chequear
 test "Si Harry que está empezando la búsqueda de la Snitch hace una jugada contra Slytherin con mala suerte, 
 	al terminar su jugada no encontró la Snitch." {
-	suerte.tipoDeSuerte(malaSuerte)
+	fixture.gryffindor().suerte(malaSuerte)
 	fixture.harryPotter().hacerJugada(fixture.slytherin())
 
 	assert.notThat(fixture.harryPotter().encontroLaSnitch())	
@@ -231,6 +231,18 @@ test "Si Goyle hace una jugada contra Gryffindor,
 	assert.that(fixture.gregoryGoyle().skills()== 75 and !fixture.ginnyWeasley().tieneLaQuaffle())
 }
 
+test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la Snitch"{
+	fixture.gryffindor().suerte(buenaSuerte)
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+	assert.that(fixture.harryPotter().encontroLaSnitch())
+}
+
+test "Si Harry esta persiguiendo la Snitch estando a 4000 metros de distancia de atraparla y hace una jugada contra Slytherin, queda a 3900 metros de distancia."{
+	fixture.harryPotter().actividad(new Persecucion())
+	fixture.harryPotter().actividad().distancia(4000)
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+}
+/*
 test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la Snitch.
 	Si Harry está persiguiendo la Snitch estando a 4000 metros de distancia de atraparla y hace una jugada contra Slytherin, queda a 3900 metros de distancia." {
 	suerte.tipoDeSuerte(buenaSuerte)
@@ -240,7 +252,7 @@ test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la S
 
 	assert.that(fixture.harryPotter().encontroLaSnitch() and fixture.harryPotter().actividad().metrosARecorrer() == 5000 - fixture.harryPotter().velocidad() * 2)
 }
-
+*/
 test "Si Harry (luego de ganar 100 puntos de skills) estaba persiguiendo la Snitch estando a 75 metros de distancia de atraparla 
 	y lo golpea una Bludger de Slytherin, no debería haber perdido de vista la Snitch porque sólo quedó aturdido."{
 	fixture.harryPotter().aumentarSkills(100)

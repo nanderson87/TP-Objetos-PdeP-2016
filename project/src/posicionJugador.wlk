@@ -112,7 +112,7 @@ class Buscador  inherits Jugador{
 			self.recuperate()
 		} else {
 			actividad.hacete(self.velocidad())
-			if (actividad.encontroSnitch()){ actividad(persecucion)}
+			if (actividad.encontroSnitch()){ self.actividad(persecucion)}
 			if (actividad.puedeAtraparLaSnitch()){ self.atrapaSnitch() }
 		}
 	}

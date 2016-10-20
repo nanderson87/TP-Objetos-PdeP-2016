@@ -22,8 +22,6 @@ class Jugador {
 	
 	method skills() = skills 
 	
-	method skills(_skills) { skills = _skills }
-	
 	method tengoQuaffle() = tengoQuaffle
 	
 	method suerte() = miSuerte
@@ -34,6 +32,18 @@ class Jugador {
 		miSuerte = _suerte
 	}
 	
+	method aumentarSkills(cantidad) {
+		skills += cantidad
+	}
+	
+	method perderSkills(cantidad) {
+		skills -= cantidad
+	}
+	
+	method bloquear() {
+		self.aumentarSkills(3)
+	}
+
 	method fuerza() = fuerza
 	
 	method escoba() = escoba	
@@ -62,8 +72,8 @@ class Jugador {
 		self.habilidad() > equipo.habilidadPromedio() && 
 		self.velocidad() >= mercadoDeEscobas.velocidadEstablecida() 
 
-	method golpearPorBludger(rival){
-		skills -= 2
+	method golpearPorBludger(rival) {
+		self.perderSkills(2)
 		escoba.golpearPorBludger() 
 	} 
 	
@@ -78,9 +88,9 @@ class Jugador {
 	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || self.suerte() == buenaSuerte
 		
 	method ganarSkillsPorBloqueo(){
-		self.skills((self.skills() + 3))
+		self.aumentarSkills(3)
 	}
-		
+				
 	method hacerJugada(equipoRival)
 	
 }

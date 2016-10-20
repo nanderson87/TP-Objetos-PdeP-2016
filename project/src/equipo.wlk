@@ -10,7 +10,6 @@ class Equipo {
 	
 	constructor (_jugadores ){
 		jugadores = _jugadores
-
 		jugadores.forEach({ jugador=>jugador.miEquipo(self) })
 	}
 	

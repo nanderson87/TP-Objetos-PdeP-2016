@@ -4,6 +4,7 @@ import posicionJugador.*
 import equipo.*
 import fixture.*
 import suerte.*
+import exceptions.*
 
 
 test "La velocidad de una escoba Nimbus es (80 - su edad) * % de salud" {
@@ -113,5 +114,32 @@ test "si Montague tiene la Quaffle, y hace su jugada contra gryffindor y no lo b
 	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
 	
 	assert.that(fixture.grahamMontague().skills() == 40 && fixture.slytherin().puntaje() == (puntajeViejo + 10) && fixture.gryffindor().tieneLaQuaffle())
+}
+
+test "si Slytherin obtiene la Quaffle se la queda Warrington"{
+	fixture.slytherin().obtenerLaQuaffle()
 	
+	assert.that(fixture.warrington().tieneLaQuaffle())
+}
+
+test "si Gryffindor tiene la Quaffle no deberia poder obtenerla"{
+	fixture.gryffindor().obtenerLaQuaffle()
+	
+	assert.throwsException(new NoPuedoTenerOtraQuaffle())
+}
+
+test "un bloqueo de gryffindor a montague con mala suerte no es exitoso"{
+	fixture.gryffindor().jugadores().forEach({j =>j.suerte(malaSuerte)})
+	fixture.grahamMontague().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	
+	assert.throwsException(new NoPudeBloquear())
+}
+
+test "un bloqueo de gryffindor a montague con buena suerte sera exitoso"{
+	fixture.gryffindor().jugadores().forEach({j =>j.suerte(buenaSuerte)})
+	fixture.grahamMontague().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.grahamMontague().skills() == 32 && fixture.katieBell().skills() == 48 )
 }

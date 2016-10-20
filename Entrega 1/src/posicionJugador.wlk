@@ -98,7 +98,8 @@ class Golpeador inherits Jugador{
 class Buscador  inherits Jugador{
 	var metrosRecorridos
 	var vision
-	var actividad	// Un objeto para busqueda y otro para persecucion
+	var actividad = busqueda	//  Inicialmente los buscadores arrancan buscando la Snitch
+	var estaAturdido = false
 
 	constructor(_skills,_peso,_fuerza,_escoba,_vision) = super(_skills,_peso,_fuerza,_escoba){
 		vision = _vision
@@ -141,6 +142,45 @@ class Buscador  inherits Jugador{
 			//objetoBusqueda.realizate(self)		
 	}
 	
-	override method hacerJugada(unEquipo) = actividad.realizate(self)
+	override method hacerJugada(equipoRival) {
+		if(self.estaAturdido()){
+			// ¿throw estaAturdido? Si voy por este camino borrar el else
+			self.recuperate()
+		} else {
+			actividad.hacete(self.velocidad())
+			if (actividad.encontroSnitch()){ self.actividad(persecucion)}
+			if (actividad.puedeAtraparLaSnitch()){ self.atrapaSnitch() }
+		}
+	}
+	
+	override method blancoUtil(equipoRival) = super(equipoRival) or actividad.cercaDeLaSnitch()
+	
+	override method golpearPorBludger(rival) {
+		super(rival)
+		if(self.soyGroso(self.miEquipo())) {
+			self.aturdite();
+		} else {
+			self.reiniciarBusqueda()
+		}
+	}
+	
+	method atrapaSnitch(){
+		self.miEquipo().ganarPuntos(150);
+		self.skills(self.skills() + 30)
+	}
+	
+	method actividad(nuevaActividad){
+		actividad = nuevaActividad
+	}
+	
+	method reiniciarBusqueda(){
+		actividad(busqueda)
+		actividad.reset()
+	}
+	
+	method estaAturdido() = estaAturdido
+	method recuperate(){ estaAturdido = false }
+	method aturdite(){ estaAturdido = true }
+	
 }
 

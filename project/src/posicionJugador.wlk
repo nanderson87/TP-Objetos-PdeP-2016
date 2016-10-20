@@ -108,9 +108,9 @@ class Buscador  inherits Jugador{
 	override method puedeBloquear(cazadorEnemigo) = false
 
 	override method hacerJugada(equipoRival) {
-		if(estaAturdido()){
+		if(self.estaAturdido()){
 			// ¿throw estaAturdido? Si voy por este camino borrar el else
-			recuperate()
+			self.recuperate()
 		} else {
 			actividad.hacete(self.velocidad())
 			if (actividad.encontroSnitch()){ actividad(persecucion)}
@@ -121,7 +121,7 @@ class Buscador  inherits Jugador{
 	override method blancoUtil(equipoRival) = super(equipoRival) || actividad.cercaDeLaSnitch()
 
 	override method golpearPorBludger(rival) {
-		super()
+		super(rival)
 		/* if(soyGroso(equipo)) {
 			aturdite();
 		} else {
@@ -137,7 +137,7 @@ class Buscador  inherits Jugador{
 	}
 
 	method actividad(nuevaActividad){
-		this.actividad = nuevaActividad
+		actividad = nuevaActividad
 	}
 
 	method reiniciarBusqueda(){
@@ -153,6 +153,7 @@ class Buscador  inherits Jugador{
 
 object busqueda {
 	var encontroSnitch = false;
+	var turnos = 0
 
 	method hacete(velocidad){
 		/* TODO: si su actividad actual es la búsqueda debe chequear tantas
@@ -177,24 +178,22 @@ object busqueda {
 }
 
 object persecucion {
-	var turnos = 0
-
 	var metrosARecorrer = 5000; // Una vez que la encuentran deben perseguirla 5000 metros hasta atraparla.
 
+	method perseguirSnitch(velocidad){
+		metrosARecorrer -= velocidad * 2
+	}
+
 	method hacete(velocidad){
-		perseguirSnitch(velocidad)
+		self.perseguirSnitch(velocidad)
 		// atrapar snitch delegado a buscador
 	}
 
 	method encontroSnitch() = true
 
-	method puedeAtraparLaSnitch() = distanciaALaSnitch() <= 0
+	method puedeAtraparLaSnitch() = self.distanciaALaSnitch() <= 0
 
 	method distanciaALaSnitch() = metrosARecorrer;
-
-	method perseguirSnitch(velocidad){
-		metrosARecorrer -= velocidad * 2
-	}
 
 	method cercaDeLaSnitch() = self.encontroSnitch() && self.distanciaALaSnitch() < 1000
 }

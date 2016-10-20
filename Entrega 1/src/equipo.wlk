@@ -34,7 +34,7 @@ class Equipo {
 	method jugadorEstrellaContra(equipoRival) = jugadores.any({j => j.soyJugadorEstrellaContra(equipoRival)})
 
 	method ordenarPorMasVeloz() = jugadores.sortedBy({unJugador, otroJugador => unJugador.velocidad() > otroJugador.velocidad()})
-	
+
 	method	jugadoresQuePuedenBloquearA(cazadorEnemigo){
 		return self.ordenarPorMasVeloz().filter({bloqueador => bloqueador.puedeBloquear(cazadorEnemigo)})
 	}
@@ -46,8 +46,6 @@ class Equipo {
 	method bloquear(cazadorEnemigo) {
 			self.bloqueadorDe(cazadorEnemigo).bloquear()
 	}
-		
-	method ganarPuntos(cuantos){
-			puntaje += cuantos
-	}
+
 }
+

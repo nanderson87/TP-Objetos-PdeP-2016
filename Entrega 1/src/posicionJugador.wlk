@@ -1,13 +1,13 @@
 import jugador.*
+import exceptions.*
 import equipo.*
 import suerte.*
-import exceptions.*
+import persecucion.*
 
 class Cazador inherits Jugador {
 	var punteria
 
 	constructor(_skills,_peso,_fuerza,_escoba,_punteria ) = super(_skills,_peso,_fuerza,_escoba ){
-
 		punteria = _punteria
 	}
 	
@@ -34,7 +34,7 @@ class Cazador inherits Jugador {
 		}
 	}
 	
-	override method blancoUtil(equipoRival) = super(equipoRival) || self.tieneLaQuaffle()
+	override method blancoUtil(equipoRival) = super(equipoRival) or self.tieneLaQuaffle()
 	
 	override method hacerJugada(equipoRival){
 		if(tengoQuaffle){
@@ -52,7 +52,6 @@ class Cazador inherits Jugador {
 		self.aumentarSkills(5)
 		miEquipo.ganarPuntos(10)
 	}
-
 }
 
 class Guardian inherits Jugador{
@@ -94,13 +93,12 @@ class Golpeador inherits Jugador{
 			self.aumentarSkills(5)  
 		}
 	}
-
 }
 
 class Buscador  inherits Jugador{
+	var metrosRecorridos
 	var vision
 	var actividad	// Un objeto para busqueda y otro para persecucion
-
 
 	constructor(_skills,_peso,_fuerza,_escoba,_vision) = super(_skills,_peso,_fuerza,_escoba){
 		vision = _vision
@@ -108,6 +106,41 @@ class Buscador  inherits Jugador{
 	
 	override method habilidad() = super() + self.reflejo() * vision
 	
-	override method puedeBloquear(cazadorEnemigo) = false 
+	override method puedeBloquear(cazadorEnemigo) = false
+	
+	//getters
+	method vision() = vision
+	method metrosRecorridos() = metrosRecorridos
+	 //
 
+	method aumentaTuRecorrido(){
+		metrosRecorridos = 2* self.velocidad()
+		return metrosRecorridos
+	}
+	
+	method aumentaTusSkills() {
+		self.skills() += 30
+	}
+	
+	method haceGanarATuEquipo(){
+		self.miEquipo().aumentaTuPuntaje()
+	}
+
+	method encontreLaSnitch(){
+		return actividad.encontreLaSnitch()
+	}
+	
+	//override methods
+	override method golpearPorBludger(){
+		super()
+		if (self.soyGroso(unEquipo)){
+			//quedoAturdidoEnLaAct
+		}
+		else
+			metrosRecorridos = 0
+			//objetoBusqueda.realizate(self)		
+	}
+	
+	override method hacerJugada(unEquipo) = actividad.realizate(self)
 }
+

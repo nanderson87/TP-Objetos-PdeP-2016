@@ -132,7 +132,7 @@ test "Si Gryffindor tiene 30 puntos y harry está a 75 metros de la snitch, cuand
 	fixture.harryPotter().actividad().distancia(75)
 	fixture.harryPotter().hacerJugada(fixture.slytherin())
 	
-	assert.that(fixture.gryffindor().puntaje() == 180 && fixture.harryPotter().skills() == 40)
+	assert.that(fixture.gryffindor().puntaje() == 180 && fixture.harryPotter().skills() == 60)
 }
 
 test "Si Goyle hace una jugada con Ginny teniendo la Quaffle y Harry buscando la snitch elige a Ginny pero con mala suerte falla"{

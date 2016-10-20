@@ -89,7 +89,7 @@ class Golpeador inherits Jugador{
 	override method hacerJugada(equipoRival) {
 		var miBlanco = equipoRival.jugadores().filter({j => j.blancoUtil(self.miEquipo())}).max({b => b.habilidad()})
 		if (( miBlanco.reflejo() < punteria ) or suerte.tieneSuerte()){
-			miBlanco.golpearPorBludger()
+			miBlanco.golpearPorBludger(self)
 			skills += 5
 		}
 	}
@@ -120,8 +120,11 @@ class Buscador  inherits Jugador{
 			self.recuperate()
 		} else {
 			actividad.hacete(self)
-			if (actividad.pudoEncontrarSnitch(self)){ self.actividad(new Persecucion())}
-			actividad.intentarAtraparSnitch(self)
+			if (actividad.pudoEncontrarSnitch(self)){
+				self.actividad(new Persecucion())
+				actividad.intentarAtraparSnitch(self)
+			}
+			
 		}
 	}
 
@@ -129,8 +132,8 @@ class Buscador  inherits Jugador{
 
 	override method golpearPorBludger(rival) {
 		super(rival)
-		if(self.soyGroso(self.miEquipo())) {
-			self.aturdite();
+		if(self.soyGroso(rival.miEquipo())) {
+			self.aturdite()
 		} else {
 			self.reiniciarBusqueda()
 		}
@@ -146,8 +149,10 @@ class Buscador  inherits Jugador{
 	}
 
 	method reiniciarBusqueda(){
-		actividad(new Busqueda())
+		self.actividad(new Busqueda())
 	}
+	
+	method encontroLaSnitch() = actividad.pudoEncontrarSnitch(self)
 
 	method estaAturdido() = estaAturdido
 	method recuperate(){ estaAturdido = false }

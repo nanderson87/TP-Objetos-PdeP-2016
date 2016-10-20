@@ -208,12 +208,11 @@ test "Si Harry que está empezando la búsqueda de la Snitch hace una jugada contr
 	suerte.tipoDeSuerte(malaSuerte)
 	fixture.harryPotter().hacerJugada(fixture.slytherin())
 
-	assert.notThat(fixture.harryPotter().encontroSnitch())	
+	assert.notThat(fixture.harryPotter().encontroLaSnitch())	
 }
 
 test "Si Harry estaba buscando la Snitch desde hace 3 turnos y lo golpea una Bludger de Slytherin, 
 	debería perder los turnos de búsqueda acumulados."{
-	fixture.harryPotter()
 	fixture.harryPotter().actividad().aumentarTurno()
 	fixture.harryPotter().actividad().aumentarTurno()
 	fixture.harryPotter().actividad().aumentarTurno()
@@ -239,7 +238,7 @@ test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la S
 	suerte.tipoDeSuerte(suerteReal)
 	fixture.harryPotter().hacerJugada(fixture.slytherin())
 
-	assert.that(fixture.harryPotter().encontroSnitch() and fixture.harryPotter().actividad().metrosARecorrer() == 5000 - fixture.harryPotter().velocidad() * 2)
+	assert.that(fixture.harryPotter().encontroLaSnitch() and fixture.harryPotter().actividad().metrosARecorrer() == 5000 - fixture.harryPotter().velocidad() * 2)
 }
 
 test "Si Harry (luego de ganar 100 puntos de skills) estaba persiguiendo la Snitch estando a 75 metros de distancia de atraparla 
@@ -249,7 +248,7 @@ test "Si Harry (luego de ganar 100 puntos de skills) estaba persiguiendo la Snit
 	fixture.harryPotter().actividad().perseguirSnitch(4925)
 	fixture.harryPotter().golpearPorBludger(fixture.gregoryGoyle())
 
-	assert.that(fixture.harryPotter().estaAturdido() and fixture.harryPotter().encontroSnitch())	
+	assert.that(fixture.harryPotter().estaAturdido() and fixture.harryPotter().encontroLaSnitch())	
 }
 
 test "Si Harry (luego de ganar 100 puntos de skills) estaba persiguiendo la Snitch estando a 75 metros de distancia de atraparla 

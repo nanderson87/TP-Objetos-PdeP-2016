@@ -91,7 +91,7 @@ test "Si Ginny que es cazadora obtiene la Quaffle,
 	debería ser ella quien tiene la Quaffle." {
 	fixture.ginnyWeasley().obtenerLaQuaffle()
 	
-	assert.that(fixture.ginnyWeasley().tengoQuaffle())
+	assert.that(fixture.ginnyWeasley().tieneLaQuaffle())
 }
 
 test "Si la Quaffle está en manos de Ginny, 

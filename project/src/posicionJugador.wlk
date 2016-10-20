@@ -129,7 +129,7 @@ class Buscador  inherits Jugador{
 	}
 
 	method atrapaSnitch(){
-		//TODO: sumarPuntos (150)
+		self.miEquipo().ganarPuntos(150);
 		self.skills(self.skills() + 30)
 	}
 

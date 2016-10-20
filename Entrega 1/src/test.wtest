@@ -5,6 +5,7 @@ import equipo.*
 import fixture.*
 import suerte.*
 import exceptions.*
+import actividadesBuscador.*
 
 
 test "La velocidad de una escoba Nimbus es (80 - su edad) * % de salud" {
@@ -100,4 +101,61 @@ test "Si la Quaffle está en manos de Ginny,
 	
 	assert.throwsExceptionLike( new NoTengoQuaffle(),
           { => fixture.katieBell().perderQuaffleContra( fixture.slytherin() )} ) 
+}
+
+test "Si Harry estaba buscando la Snitch desde hace 3 turnos y lo golpea una Bludger de Slytherin, 
+	debería perder los turnos de búsqueda acumulados."{
+	fixture.harryPotter()
+	fixture.harryPotter().actividad().aumentarTurno()
+	fixture.harryPotter().actividad().aumentarTurno()
+	fixture.harryPotter().actividad().aumentarTurno()
+	fixture.harryPotter().golpearPorBludger(fixture.gregoryGoyle())
+	assert.equals(0, fixture.harryPotter().actividad().turnos())
+}
+
+test "Si Goyle hace una jugada contra Gryffindor, 
+	con Ginny luego de perder 2 puntos de skills pero teniendo la Quaffle y Harry buscando la Snitch, 
+	elige como blanco a Ginny. Aunque tenga mala suerte puede golpear a Ginny, sus skills quedan en 75 y Ginny ya no tiene la Quaffle." {
+	suerte.tipoDeSuerte(malaSuerte)
+	fixture.ginnyWeasley().perderSkills(2)
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	fixture.gregoryGoyle().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.gregoryGoyle().skills()== 75 and !fixture.ginnyWeasley().tieneLaQuaffle())
+}
+
+//test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la Snitch.
+	//Si Harry está persiguiendo la Snitch estando a 4000 metros de distancia de atraparla y hace una jugada contra Slytherin, queda a 3900 metros de distancia." {
+	//suerte.tipoDeSuerte(buenaSuerte)
+	//fixture.harryPotter().hacerJugada(fixture.slytherin())
+	//suerte.tipoDeSuerte(suerteReal)
+	//fixture.harryPotter().hacerJugada(fixture.slytherin())
+	
+	//assert.that(fixture.harryPotter().encontroSnitch()and fixture.harryPotter().actividad().metrosARecorrer() == 4000)
+//}
+
+test "Si Goyle hace una jugada contra Gryffindor, 
+	con Ginny teniendo la Quaffle y Harry buscando la Snitch, elige como blanco a Ginny (único blanco útil de Gryffindor). 
+	Tiene mala suerte y no logra golpear a Ginny, sus skills quedan en 70 y Ginny sigue teniendo la Quaffle."{
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	suerte.tipoDeSuerte(malaSuerte)
+	fixture.gregoryGoyle().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.gregoryGoyle().skills()== 70 and fixture.ginnyWeasley().tieneLaQuaffle())	
+}
+
+test "Un bloqueo de Gryffindor a Montague con buena suerte es exitoso, 
+	con lo cual los skills de Montague quedan en 32 y los de Katie (la más veloz que puede bloquear) quedan en 48."{
+	suerte.tipoDeSuerte(buenaSuerte)
+	fixture.grahamMontague().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	assert.that(fixture.grahamMontague().skills() == 32 and fixture.katieBell().skills() == 48)	
+}
+
+test "Si Ron hace una jugada contra Slytherin, sus skills no varían y los puntos tampoco."{
+	var skillsAntesRon = fixture.ronWeasley().skills()
+	var puntajeAntesGryffindor = fixture.gryffindor().puntaje()
+	fixture.ronWeasley().hacerJugada(fixture.slytherin())
+	
+	assert.that(fixture.ronWeasley().skills() == skillsAntesRon and fixture.gryffindor().puntaje() == puntajeAntesGryffindor) 
 }

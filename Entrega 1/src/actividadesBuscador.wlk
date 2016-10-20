@@ -4,13 +4,14 @@ import suerte.*
 class Busqueda {
 	var turnos = 0
 	
+	method turnos() = turnos
+	
 	method aumentarTurno(){
 		turnos += 1
 	}
 	
-	method pudoEncontrarSnitch(jugador) = (1..turnos + jugador.vision()).map(suerte.tieneSuerte()).any()   
+	method pudoEncontrarSnitch(jugador) = (1..(turnos + jugador.vision())).map(suerte.tieneSuerte()).any()  
 
-	
 	method hacete(jugador){
 		self.aumentarTurno()
 		if(self.pudoEncontrarSnitch(jugador)){
@@ -24,6 +25,8 @@ class Busqueda {
 
 class Persecucion {
 	var metrosARecorrer = 5000
+
+	method metrosARecorrer() = metrosARecorrer
 	
 	method intentarAtraparSnitch(jugador){
 		if(metrosARecorrer == 0){

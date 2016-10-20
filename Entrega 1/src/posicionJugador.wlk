@@ -112,6 +112,8 @@ class Buscador  inherits Jugador{
 		estaAturdido = _estaAturdido
 	}
 
+	method actividad() = actividad
+
 	method actividad(_actividad){
 		actividad = _actividad
 	}

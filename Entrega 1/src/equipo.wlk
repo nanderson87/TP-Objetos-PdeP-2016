@@ -14,6 +14,8 @@ class Equipo {
 	}
 	
 	method jugadores() = jugadores
+	
+	method puntaje() = puntaje
 			
 	method ganarPuntos(cuantos){
 		puntaje += cuantos

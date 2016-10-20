@@ -2,7 +2,7 @@ import jugador.*
 import exceptions.*
 import equipo.*
 import suerte.*
-import persecucion.*
+import actividadesBuscador.*
 
 class Cazador inherits Jugador {
 	var punteria
@@ -10,15 +10,15 @@ class Cazador inherits Jugador {
 	constructor(_skills,_peso,_fuerza,_escoba,_punteria ) = super(_skills,_peso,_fuerza,_escoba ){
 		punteria = _punteria
 	}
-	
+
 	override method habilidad() = super() + punteria * fuerza
-	
+
 	override method puedoObtenerQuaffle() = true
-	
+
 	method obtenerLaQuaffle(){
 		tengoQuaffle = true
 	}
-	
+
 	method perderQuaffleContra(equipo){
 		if(!tengoQuaffle){
 			throw new NoTengoQuaffle()
@@ -26,16 +26,16 @@ class Cazador inherits Jugador {
 		tengoQuaffle = false
 		equipo.obtenerLaQuaffle()
 	}
-	
+
 	override method golpearPorBludger(rival){
 		super(rival)
 		if(tengoQuaffle){
 			self.perderQuaffleContra(rival.miEquipo())
 		}
 	}
-	
+
 	override method blancoUtil(equipoRival) = super(equipoRival) or self.tieneLaQuaffle()
-	
+
 	override method hacerJugada(equipoRival){
 		if(tengoQuaffle){
 			self.perderQuaffleContra(equipoRival)
@@ -47,7 +47,7 @@ class Cazador inherits Jugador {
 			}
 		}
 	}
-	
+
 	method hacerGol(){
 		self.aumentarSkills(5)
 		miEquipo.ganarPuntos(10)
@@ -67,25 +67,25 @@ class Guardian inherits Jugador{
 	method obtenerLaQuaffle(){
 		miEquipo.jugadoresPuedenObtenerQuaffle().filter({jugador=>jugador != self}).max({jugador=>jugador.habilidad()}).obtenerLaQuaffle()
 	} 
-	
+
 	override method hacerJugada(equipoRival){}
 
 	override method bloquear(){
 		self.aumentarSkills(10)
 	}
-	
+
 	override method blancoUtil( equipoRival ) = super( equipoRival ) or !self.miEquipo().tieneLaQuaffle()
 }
 
 class Golpeador inherits Jugador{
 	var punteria
-	
+
 	constructor(_skills,_peso,_fuerza,_escoba,_punteria) = super(_skills,_peso,_fuerza,_escoba){
 		punteria = _punteria
 	}
-	
+
 	override method habilidad() = super()+ punteria + fuerza
-	
+
 	override method hacerJugada(equipoRival){
 		var miBlanco = equipoRival.filter({j => j.blancoUtil(self.miEquipo())}).max({b => b.habilidad()})
 		if (( miBlanco.reflejo() < punteria ) or suerte.tieneSuerte()){
@@ -96,91 +96,51 @@ class Golpeador inherits Jugador{
 }
 
 class Buscador  inherits Jugador{
-	var metrosRecorridos
 	var vision
-	var actividad = busqueda	//  Inicialmente los buscadores arrancan buscando la Snitch
+	var actividad = new Busqueda()
 	var estaAturdido = false
 
 	constructor(_skills,_peso,_fuerza,_escoba,_vision) = super(_skills,_peso,_fuerza,_escoba){
 		vision = _vision
 	}
-	
+
 	override method habilidad() = super() + self.reflejo() * vision
+
+	method vision() = vision
 	
+	method estaAturdido(_estaAturdido){
+		estaAturdido = _estaAturdido
+	}
+
+	method actividad(_actividad){
+		actividad = _actividad
+	}
+
 	override method puedeBloquear(cazadorEnemigo) = false
 	
-	//getters
-	method vision() = vision
-	method metrosRecorridos() = metrosRecorridos
-	 //
-
-	method aumentaTuRecorrido(){
-		metrosRecorridos = 2* self.velocidad()
-		return metrosRecorridos
-	}
+	override method blancoUtil(equipoRival) = super(equipoRival) or (actividad.cercaDeLaSnitch())
 	
-	method aumentaTusSkills() {
-		self.skills() += 30
-	}
-	
-	method haceGanarATuEquipo(){
-		self.miEquipo().aumentaTuPuntaje()
-	}
-
-	method encontreLaSnitch(){
-		return actividad.encontreLaSnitch()
-	}
-	
-	//override methods
-	override method golpearPorBludger(){
-		super()
-		if (self.soyGroso(unEquipo)){
-			//quedoAturdidoEnLaAct
-		}
-		else
-			metrosRecorridos = 0
-			//objetoBusqueda.realizate(self)		
-	}
-	
-	override method hacerJugada(equipoRival) {
-		if(self.estaAturdido()){
-			// ¿throw estaAturdido? Si voy por este camino borrar el else
-			self.recuperate()
+	override method hacerJugada(equipoRival){
+		if (estaAturdido){
+			self.estaAturdido(false)	
 		} else {
-			actividad.hacete(self.velocidad())
-			if (actividad.encontroSnitch()){ self.actividad(persecucion)}
-			if (actividad.puedeAtraparLaSnitch()){ self.atrapaSnitch() }
+			actividad.hacete(self)	
 		}
 	}
-	
-	override method blancoUtil(equipoRival) = super(equipoRival) or actividad.cercaDeLaSnitch()
-	
+
+	method atraparSnitch(){
+		self.miEquipo().ganarPuntos(150)
+		self.aumentarSkills(30)
+	}
+
 	override method golpearPorBludger(rival) {
-		super(rival)
-		if(self.soyGroso(self.miEquipo())) {
-			self.aturdite();
+		super(rival) 
+		if(self.soyGroso(self.miEquipo())){
+			self.estaAturdido(true)
 		} else {
-			self.reiniciarBusqueda()
+			self.actividad(new Busqueda())
 		}
 	}
-	
-	method atrapaSnitch(){
-		self.miEquipo().ganarPuntos(150);
-		self.skills(self.skills() + 30)
-	}
-	
-	method actividad(nuevaActividad){
-		actividad = nuevaActividad
-	}
-	
-	method reiniciarBusqueda(){
-		actividad(busqueda)
-		actividad.reset()
-	}
-	
-	method estaAturdido() = estaAturdido
-	method recuperate(){ estaAturdido = false }
-	method aturdite(){ estaAturdido = true }
-	
-}
 
+	method encontroSnitch() = actividad.pudoEncontrarSnitch(self)		 
+}

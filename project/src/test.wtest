@@ -202,7 +202,7 @@ test "un bloqueo de gryffindor a montague con buena suerte sera exitoso"{
 	assert.that(fixture.grahamMontague().skills() == 32 && fixture.katieBell().skills() == 48 )
 }
 
-// A chequear
+// De acá para abajo puede haber repetidos
 test "Si Harry que está empezando la búsqueda de la Snitch hace una jugada contra Slytherin con mala suerte, 
 	al terminar su jugada no encontró la Snitch." {
 	fixture.gryffindor().suerte(malaSuerte)
@@ -242,17 +242,7 @@ test "Si Harry esta persiguiendo la Snitch estando a 4000 metros de distancia de
 	fixture.harryPotter().actividad().distancia(4000)
 	fixture.harryPotter().hacerJugada(fixture.slytherin())
 }
-/*
-test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la Snitch.
-	Si Harry está persiguiendo la Snitch estando a 4000 metros de distancia de atraparla y hace una jugada contra Slytherin, queda a 3900 metros de distancia." {
-	suerte.tipoDeSuerte(buenaSuerte)
-	fixture.harryPotter().hacerJugada(fixture.slytherin())
-	suerte.tipoDeSuerte(suerteReal)
-	fixture.harryPotter().hacerJugada(fixture.slytherin())
 
-	assert.that(fixture.harryPotter().encontroLaSnitch() and fixture.harryPotter().actividad().metrosARecorrer() == 5000 - fixture.harryPotter().velocidad() * 2)
-}
-*/
 test "Si Harry (luego de ganar 100 puntos de skills) estaba persiguiendo la Snitch estando a 75 metros de distancia de atraparla 
 	y lo golpea una Bludger de Slytherin, no debería haber perdido de vista la Snitch porque sólo quedó aturdido."{
 	fixture.harryPotter().aumentarSkills(100)

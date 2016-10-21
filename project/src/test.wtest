@@ -1,0 +1,345 @@
+import escobas.*
+import jugador.*
+import posicionJugador.*
+import equipo.*
+import fixture.*
+import suerte.*
+import exceptions.*
+import actividadesBuscador.*
+
+test "La velocidad de una escoba Nimbus es (80 - su edad) * % de salud" {
+	var nimbus2001_50hp = new Nimbus(2001,50)
+	assert.that(nimbus2001_50hp.velocidad() == ((80-15)*0.5))
+}
+
+test "Harry Potter tiene 0,5 de manejo de escoba" {
+	assert.equals(0.5, fixture.harryPotter().nivelManejoDeEscoba())
+}
+
+test "La escoba de Ron Weasley tiene una velocidad de 32 y por ende el de 16." {
+	assert.equals( 16, fixture.ronWeasley().velocidad() )
+}
+
+test "Draco Malfoy tiene una velocidad de 35,1."{
+	assert.equals(35.1, fixture.dracoMalfoy().velocidad())
+}
+
+test "Harry Potter tiene una velocidad 50." {
+	assert.equals(50, fixture.harryPotter().velocidad())
+}
+
+test "Harry Potter, por ser buscador tiene una habilidad de 110." {
+	assert.equals(110, fixture.harryPotter().habilidad())
+}
+
+test "Ginny Weasley, por ser cazadora tiene una habilidad de 282." {
+	assert.equals(282, fixture.ginnyWeasley().habilidad())
+}
+
+test "Fred Weasley, por ser golpeador, tiene una habilidad de 240."{
+	assert.equals(240, fixture.fredWeasley().habilidad())
+}
+
+test "Ron Weasley, por ser guardián, tiene una habilidad de 120,8." {
+	assert.equals(120.8, fixture.ronWeasley().habilidad())
+}
+
+test "Fred Weasley le pasa el trapo a Miles Bletchley"{
+	assert.that(fixture.fredWeasley().lePasaElTrapo(fixture.milesBletchley()))
+} 
+
+test "Fred Weasley NO le pasa el trapo a Warrington."{
+	assert.that(not (fixture.fredWeasley().lePasaElTrapo(fixture.warrington())))
+}
+
+
+test "De Gryffindor Fred, Angelina y Katie son jugadores grosos"{
+	assert.equals([fixture.angelinaJohnson(),fixture.fredWeasley(), fixture.katieBell()], fixture.gryffindor().jugadoresGrosos())
+	}
+
+test "De Slytherin  Warrington y  Montague son jugadores grosos" {
+	assert.equals([fixture.grahamMontague(), fixture.warrington()],fixture.slytherin().jugadoresGrosos())	
+}
+
+
+test "Slytherin tiene jugador estrella contra Gryffindor"{
+	assert.that(fixture.slytherin().jugadorEstrellaContra(fixture.gryffindor()))
+
+}
+
+test "Gryffindor NO tiene jugador estrella contra Slytherin"{
+	assert.that(!(fixture.gryffindor().jugadorEstrellaContra(fixture.slytherin())))
+
+}
+
+test "Si Crabbe es golpeado por una bludger sus skills pasan a ser 78."{
+	fixture.vincentCrabbe().golpearPorBludger(null)
+	assert.equals(78,fixture.vincentCrabbe().skills())
+}
+
+test "Si Ron es golpeado por una bludger sus skills pasan a ser 28 y su Nimbus queda con 40% de salud."{
+	fixture.ronWeasley().golpearPorBludger(null)
+	assert.equals(28, fixture.ronWeasley().skills())
+}
+
+test "Si Ron es golpeado por una bludger su Nimbus queda con 40% de salud."{
+	fixture.ronWeasley().golpearPorBludger(null)
+	assert.equals(40, fixture.ronWeasley().escoba().salud())
+}
+
+test "Si Ginny que es cazadora obtiene la Quaffle, 
+	debería ser ella quien tiene la Quaffle." {
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+
+	assert.that(fixture.ginnyWeasley().tieneLaQuaffle())
+}
+
+test "Si la Quaffle está en manos de Ginny, 
+	Katie no debería poder perder la Quaffle contra Slytherin." {
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+
+	assert.throwsExceptionLike( new NoTengoQuaffle(),
+          { => fixture.katieBell().perderQuaffleContra( fixture.slytherin() )} ) 
+}
+
+test "Si Ginny tiene la Quaffle, Gryffindor debería tenerla y no Slytherin"{
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	
+	assert.that(fixture.gryffindor().tieneLaQuaffle() && !fixture.slytherin().tieneLaQuaffle())
+}
+
+test "Si Ginny pierde la Quaffle contra Slytherin, Warrington debería tenerla y no Ginny"{
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	fixture.ginnyWeasley().perderQuaffleContra(fixture.slytherin())
+	
+	assert.that(!fixture.ginnyWeasley().tieneLaQuaffle() && fixture.warrington().tieneLaQuaffle())
+}
+
+test "Si ron cambia la escoba por una nimbus 2016 en perfecto estado bloquea a Montagne con mala suerte"{
+	fixture.ronWeasley().escoba(new Nimbus(2016,100))
+	fixture.ronWeasley().suerte(buenaSuerte)
+	fixture.grahamMontague().suerte(malaSuerte)
+	fixture.grahamMontague().obtenerLaQuaffle()
+	
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.ronWeasley().skills() == 40 && fixture.grahamMontague().skills() == 32)
+}
+
+test "Si Gryffindor tiene 30 puntos y harry está a 75 metros de la snitch, cuando harry hace su jugada, Gryffindor queda con 180 puntos y los skills de Harry quedan en 40"{
+	fixture.gryffindor().ganarPuntos(30)
+	fixture.harryPotter().actividad(new Persecucion())
+	fixture.harryPotter().actividad().distancia(75)
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+	
+	assert.that(fixture.gryffindor().puntaje() == 180 && fixture.harryPotter().skills() == 60)
+}
+
+test "Si Goyle hace una jugada con Ginny teniendo la Quaffle y Harry buscando la snitch elige a Ginny pero con mala suerte falla"{
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	fixture.harryPotter().actividad(new Busqueda())
+	fixture.gregoryGoyle().suerte(malaSuerte)
+	
+	fixture.gregoryGoyle().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.gregoryGoyle().skills() == 70 && fixture.ginnyWeasley().tieneLaQuaffle())
+}
+
+test "Si Miles obtiene la Quaffle, Graham deberia tenerla"{
+	fixture.milesBletchley().obtenerLaQuaffle()
+	
+	assert.that(fixture.grahamMontague().tieneLaQuaffle())
+}
+
+test "Si Ginny tiene la Quaffle y es golpeada por una Bludger de Slytherin, Slytherin deberia obtener la quaffle" {
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	fixture.ginnyWeasley().golpearPorBludger(fixture.vincentCrabbe())
+	assert.that(!fixture.ginnyWeasley().tieneLaQuaffle() && fixture.slytherin().tieneLaQuaffle())
+}
+
+test "Un bloqueo de Slytherin a Katie, es siempre exitoso incluso con mala suerte, por que montague le pasa el trapo, katie queda con 42 skills y montague con 38" {
+	fixture.katieBell().obtenerLaQuaffle()
+	fixture.grahamMontague().suerte(malaSuerte)
+	fixture.katieBell().hacerJugada(fixture.slytherin())
+	
+	assert.that(fixture.katieBell().skills() == 42 && fixture.grahamMontague().skills() == 38)
+}
+
+test "si Montague tiene la Quaffle, y hace su jugada contra gryffindor y no lo bloquean por que tienen mala suerte, Montague queda con 40 de skills, Slytherin gana 10 puntos y gryffindor obtiene la quaffle"{
+	var puntajeViejo = fixture.slytherin().puntaje()
+	fixture.gryffindor().jugadores().forEach({j =>j.suerte(malaSuerte)})
+	fixture.grahamMontague().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.grahamMontague().skills() == 40 && fixture.slytherin().puntaje() == (puntajeViejo + 10) && fixture.gryffindor().tieneLaQuaffle())
+}
+
+test "si Slytherin obtiene la Quaffle se la queda Warrington"{
+	fixture.slytherin().obtenerLaQuaffle()
+	
+	assert.that(fixture.warrington().tieneLaQuaffle())
+}
+
+test "si Gryffindor tiene la Quaffle no deberia poder obtenerla"{
+	fixture.gryffindor().obtenerLaQuaffle()
+	
+	assert.throwsException(new NoPuedoTenerOtraQuaffle())
+}
+
+test "un bloqueo de gryffindor a montague con mala suerte no es exitoso"{
+	fixture.gryffindor().jugadores().forEach({j =>j.suerte(malaSuerte)})
+	fixture.grahamMontague().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	
+	assert.throwsException(new NoPudeBloquear())
+}
+
+test "un bloqueo de gryffindor a montague con buena suerte sera exitoso"{
+	fixture.gryffindor().jugadores().forEach({j =>j.suerte(buenaSuerte)})
+	fixture.grahamMontague().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	
+	assert.that(fixture.grahamMontague().skills() == 32 && fixture.katieBell().skills() == 48 )
+}
+
+// De acá para abajo puede haber repetidos
+test "Si Harry que está empezando la búsqueda de la Snitch hace una jugada contra Slytherin con mala suerte, 
+	al terminar su jugada no encontró la Snitch." {
+	fixture.gryffindor().suerte(malaSuerte)
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+
+	assert.notThat(fixture.harryPotter().encontroLaSnitch())	
+}
+
+test "Si Harry estaba buscando la Snitch desde hace 3 turnos y lo golpea una Bludger de Slytherin, 
+	debería perder los turnos de búsqueda acumulados."{
+	fixture.harryPotter().actividad().aumentarTurno()
+	fixture.harryPotter().actividad().aumentarTurno()
+	fixture.harryPotter().actividad().aumentarTurno()
+	fixture.harryPotter().golpearPorBludger(fixture.gregoryGoyle())
+	assert.equals(0, fixture.harryPotter().actividad().turnos())
+}
+
+test "Si Goyle hace una jugada contra Gryffindor, 
+	con Ginny luego de perder 2 puntos de skills pero teniendo la Quaffle y Harry buscando la Snitch, 
+	elige como blanco a Ginny. Aunque tenga mala suerte puede golpear a Ginny, sus skills quedan en 75 y Ginny ya no tiene la Quaffle." {
+	suerte.tipoDeSuerte(malaSuerte)
+	fixture.ginnyWeasley().perderSkills(2)
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	fixture.gregoryGoyle().hacerJugada(fixture.gryffindor())
+
+	assert.that(fixture.gregoryGoyle().skills()== 75 and !fixture.ginnyWeasley().tieneLaQuaffle())
+}
+
+test "Si Harry hace una jugada contra Slytherin con buena suerte, encuentra la Snitch"{
+	fixture.gryffindor().suerte(buenaSuerte)
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+	assert.that(fixture.harryPotter().encontroLaSnitch())
+}
+
+test "Si Harry esta persiguiendo la Snitch estando a 4000 metros de distancia de atraparla y hace una jugada contra Slytherin, queda a 3900 metros de distancia."{
+	fixture.harryPotter().actividad(new Persecucion())
+	fixture.harryPotter().actividad().distancia(4000)
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+}
+
+test "Si Harry (luego de ganar 100 puntos de skills) estaba persiguiendo la Snitch estando a 75 metros de distancia de atraparla 
+	y lo golpea una Bludger de Slytherin, no debería haber perdido de vista la Snitch porque sólo quedó aturdido."{
+	fixture.harryPotter().aumentarSkills(100)
+	fixture.harryPotter().actividad(new Persecucion())
+	fixture.harryPotter().actividad().perseguirSnitch(4925)
+	fixture.harryPotter().golpearPorBludger(fixture.gregoryGoyle())
+
+	assert.that(fixture.harryPotter().estaAturdido() and fixture.harryPotter().encontroLaSnitch())	
+}
+
+test "Si Harry (luego de ganar 100 puntos de skills) estaba persiguiendo la Snitch estando a 75 metros de distancia de atraparla 
+	y lo golpea una Bludger de Slytherin, no debería haber perdido de vista la Snitch porque sólo quedó aturdido. Luego de hacer una jugada debería seguir estando a 75 metros"{
+	fixture.harryPotter().aumentarSkills(100)
+	fixture.harryPotter().actividad(new Persecucion())
+	fixture.harryPotter().actividad().perseguirSnitch(4925)
+	fixture.harryPotter().golpearPorBludger(fixture.gregoryGoyle())
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+
+	assert.equals(75, fixture.harryPotter().actividad().metrosARecorrer())	
+}
+
+test "Si Harry (luego de ganar 100 puntos de skills) estaba persiguiendo la Snitch estando a 75 metros de distancia de atraparla 
+	y lo golpea una Bludger de Slytherin, no debería haber perdido de vista la Snitch porque sólo quedó aturdido. Luego de hacer una jugada debería seguir estando a 75 metros
+	y luego de una segunda jugada debería tener 158 de skills por atrapar la Snitch."{
+	fixture.harryPotter().aumentarSkills(100)
+	fixture.harryPotter().actividad(new Persecucion())
+	fixture.harryPotter().actividad().perseguirSnitch(4925)
+	fixture.harryPotter().golpearPorBludger(fixture.gregoryGoyle())
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+	fixture.harryPotter().hacerJugada(fixture.slytherin())
+
+	assert.equals(158, fixture.harryPotter().skills())	
+}
+
+test "Si Fred hace una jugada contra Slytherin, con Ginny teniendo la Quaffle y Malfoy a 100 metros de conseguir la Snitch, 
+	elige como blanco (de entre Malfoy, Montague y Bletchley) a Montague. Su puntería no es suficiente alta, pero con buena suerte lo golpea y sus skills quedan en 85, 
+	mientras que los de Montague quedan en 33."{
+	suerte.tipoDeSuerte(buenaSuerte)
+	fixture.dracoMalfoy().actividad(new Persecucion())
+	fixture.dracoMalfoy().actividad().perseguirSnitch(4900)
+	fixture.fredWeasley().hacerJugada(fixture.slytherin())
+
+	assert.that(fixture.fredWeasley().skills() == 85 and fixture.grahamMontague().skills() == 33)
+}
+
+test "Si Goyle hace una jugada contra Gryffindor, 
+	con Ginny teniendo la Quaffle y Harry buscando la Snitch, elige como blanco a Ginny (único blanco útil de Gryffindor). 
+	Tiene mala suerte y no logra golpear a Ginny, sus skills quedan en 70 y Ginny sigue teniendo la Quaffle."{
+	fixture.ginnyWeasley().obtenerLaQuaffle()
+	suerte.tipoDeSuerte(malaSuerte)
+	fixture.gregoryGoyle().hacerJugada(fixture.gryffindor())
+
+	assert.that(fixture.gregoryGoyle().skills()== 70 and fixture.ginnyWeasley().tieneLaQuaffle())	
+}
+
+test "Un bloqueo de Gryffindor a Montague con mala suerte no es exitoso. 
+	No deberían modificarse los skills de Montague." {
+	suerte.tipoDeSuerte(malaSuerte)
+	var skillsAntesMontague = fixture.grahamMontague().skills()
+
+	assert.throwsExceptionLike(new NoPudeBloquear(),
+          {=> fixture.gryffindor().bloquear(fixture.grahamMontague())})
+	assert.equals(skillsAntesMontague, fixture.grahamMontague().skills())	
+}
+
+test "Un bloqueo de Gryffindor a Montague con buena suerte es exitoso, 
+	con lo cual los skills de Montague quedan en 32 y los de Katie (la más veloz que puede bloquear) quedan en 48."{
+	fixture.gryffindor().suerte(buenaSuerte)
+	fixture.grahamMontague().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+
+	assert.that(fixture.grahamMontague().skills() == 32 and fixture.katieBell().skills() == 48)	
+}
+
+test "Si Warrington tiene la Quaffle y Montague hace una jugada contra Gryffindor, 
+	sus skills no varían, los puntos tampoco y la Quaffle la sigue teniendo Warrington."{
+	fixture.warrington().obtenerLaQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	var skillsAntesMontague = fixture.grahamMontague().skills()
+	var puntajeAntesSlytherin = fixture.slytherin().puntaje()
+
+	assert.that(fixture.warrington().tieneLaQuaffle() and fixture.grahamMontague().skills() == skillsAntesMontague and fixture.slytherin().puntaje() == puntajeAntesSlytherin)		
+}
+
+test "Si Katie hace una jugada contra Slytherin, como es bloqueada Gryffindor no gana puntos 
+	y Slytherin se queda con la Quaffle."{
+	fixture.katieBell().obtenerLaQuaffle()	
+	fixture.katieBell().hacerJugada(fixture.slytherin())
+	var puntajeAntesGryffindor = fixture.gryffindor().puntaje()
+
+	assert.that(fixture.gryffindor().puntaje() == puntajeAntesGryffindor and fixture.slytherin().tieneLaQuaffle())
+}
+
+test "Si Ron hace una jugada contra Slytherin, sus skills no varían y los puntos tampoco."{
+	var skillsAntesRon = fixture.ronWeasley().skills()
+	var puntajeAntesGryffindor = fixture.gryffindor().puntaje()
+	fixture.ronWeasley().hacerJugada(fixture.slytherin())
+
+	assert.that(fixture.ronWeasley().skills() == skillsAntesRon and fixture.gryffindor().puntaje() == puntajeAntesGryffindor) 
+}

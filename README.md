@@ -17,10 +17,20 @@ El mismo es desarrollado en el lenguaje de progrmación y entorno de desarrollo 
 
 ## Picadito de Quidditch 
 
+### Entrega 2
+
+* Enunciado: [Picadito Quidditch - Entrega 2](https://docs.google.com/document/d/14PqIHe68LxW-TYAM8wowcBJkx581c6JsAyJkZ_RZyrE/edit)
+
+* Diagrama de Clases - v2.0
+
+![Diagrama de Clase - v2.0](https://github.com/zkLXXKO/TP-Objetos-PdeP-2016/blob/master/Diagrama%20de%20Clases/Diagrama%20v2.0.png)
+
+
+
 ### Entrega 1
 
 * Enunciado: [Picadito Quidditch - Entrega 1](https://docs.google.com/document/d/1DuPcu8Y_oYFDKzOBXCwsJVZwqgTzFhRZYaNvBqxfT_Q/edit#)
 
 * Diagrama de Clases - v1.1
 
-![Diagrama de Clase - v1.1](https://github.com/zkLXXKO/TP-Objetos-PdeP-2016/blob/master/Diagrama%20de%20Clases/Diagrama%20v2.0.png)
+![Diagrama de Clase - v1.1](https://github.com/zkLXXKO/TP-Objetos-PdeP-2016/blob/master/Diagrama%20de%20Clases/Diagrama%20de%20Clases%20v1.1.png)

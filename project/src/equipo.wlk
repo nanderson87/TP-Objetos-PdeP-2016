@@ -6,56 +6,42 @@ import exceptions.*
 
 class Equipo {
 	var jugadores
-	var puntaje = 0
+	var puntos = 0
 	
 	constructor (_jugadores ){
 		jugadores = _jugadores
-		jugadores.forEach({ jugador=>jugador.miEquipo(self) })
+		jugadores.map({j=>j.miEquipo(self)})
 	}
 	
 	method jugadores() = jugadores
+	method puntos() = puntos
 	
-	method puntaje() = puntaje
-	
-	method habilidadPromedio() = jugadores.sum({ unJugador => unJugador.habilidad() }) / jugadores.size()
-	
-	method jugadoresGrosos() = jugadores.filter({ unJugador => unJugador.soyGroso(self) })
-		
-	method tieneLaQuaffle() = jugadores.any({ jugador => jugador.tieneLaQuaffle() })
-	
-	method jugadoresPuedenObtenerQuaffle() = jugadores.filter({ jugador => jugador.puedoObtenerQuaffle() })
-	
-	method obtenerLaQuaffle(){
-		self.jugadoresPuedenObtenerQuaffle().max({ jugador => jugador.velocidad() }).obtenerLaQuaffle()
+	method ganarPuntos(cuantos){
+		puntos += cuantos
 	}
+	
+	method habilidadPromedio() = jugadores.sum({unJugador => unJugador.habilidad()}) / jugadores.size()
+	
+	method jugadoresGrosos() = jugadores.filter({unJugador => unJugador.soyGroso(self)})
+	
+	method jugadorEstrellaContra(equipoRival) = jugadores.any({j=>j.jugadorEstrellaContra(equipoRival)})
+	
+	method tieneQuaffle() = jugadores.any({j=>j.tieneQuaffle()})
+	
+	method jugadoresQueObtienenQuaffle() = jugadores.filter({j=>j.puedeObtenerQuaffle()})
+	
+	method obtenerQuaffle(){
+		if(self.tieneQuaffle()){
+			throw new YaTengoQuaffle()
+		}
+		self.jugadoresQueObtienenQuaffle().max({j=>j.velocidad()}).obtenerQuaffle()
+	}
+	
+	method bloquear(rival){
+		self.bloqueadorDe(rival).bloquear()
+	}
+	
+	method jugadoresPuedenBloquearA(rival) = jugadores.filter({j=>j.puedoBloquear(rival)}).sortedBy({j1,j2=>j1.velocidad() > j2.velocidad()})
 
-	method jugadorEstrellaContra(equipoRival) = jugadores.any({
-		j => j.soyJugadorEstrellaContra(equipoRival)
-	})
-
-	method ordenarPorMasVeloz() = jugadores.sortedBy({
-		unJugador, otroJugador => unJugador.velocidad() > otroJugador.velocidad()
-	})
-	
-	method	jugadoresQuePuedenBloquearA(cazadorEnemigo){
-		return self.ordenarPorMasVeloz().filter({ bloqueador => bloqueador.puedeBloquear(cazadorEnemigo) })
-	}
-	
-	method bloqueadorDe(cazadorEnemigo) {
-		return self.jugadoresQuePuedenBloquearA(cazadorEnemigo).findOrElse(
-			{ bloquea => true }, { throw new NoPudeBloquear() }
-		)
-	}
-	
-	method bloquear(cazadorEnemigo) {
-		self.bloqueadorDe(cazadorEnemigo).ganarSkillsPorBloqueo()
-	}
-		
-	method ganarPuntos(cuantos) {
-		puntaje += cuantos
-	}
-	
-	method suerte(cual){
-		jugadores.map({d=>d.suerte(cual)})
-	}
- }
+	method bloqueadorDe(rival) = self.jugadoresPuedenBloquearA(rival).findOrElse({=>true},{throw new NoPudeBloquear()})
+}

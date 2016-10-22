@@ -2,6 +2,7 @@ import escobas.*
 import posicionJugador.*
 import equipo.*
 import mercadoDeEscobas.*
+import exceptions.*
 import suerte.*
 
 class Jugador {
@@ -9,88 +10,74 @@ class Jugador {
 	var peso
 	var fuerza
 	var escoba
+	var tieneQuaffle = false
 	var miEquipo
-	var tengoQuaffle = false
-	var miSuerte = malaSuerte
 	
-	constructor(_skills, _peso, _fuerza, _escoba){
+	 
+	constructor( _skills,_peso, _fuerza, _escoba ){
+		
 		skills = _skills
 		peso = _peso
 		fuerza = _fuerza
 		escoba = _escoba
+		
 	}
 	
-	method skills() = skills 
-	
-	method tengoQuaffle() = tengoQuaffle
-	
-	method suerte() = miSuerte
-	
-	method tengoQuaffle(_tengoQuaffle) {tengoQuaffle = _tengoQuaffle}
-	
-	method suerte(_suerte){
-		miSuerte = _suerte
-	}
-	
-	method aumentarSkills(cantidad) {
-		skills += cantidad
-	}
-	
-	method perderSkills(cantidad) {
-		skills -= cantidad
-	}
-	
-	method bloquear() {
-		self.aumentarSkills(3)
-	}
-
+	method skills()= skills
 	method fuerza() = fuerza
-	
-	method escoba() = escoba	
-	
+	method escoba() = escoba
+	method tieneQuaffle() = tieneQuaffle
 	method miEquipo() = miEquipo
 	
-	method miEquipo(cual) {
+	method miEquipo(cual){
 		miEquipo = cual
 	}
-	
-	method escoba(_escoba){
-		escoba = _escoba
+	method ganarSkills(cuantos){
+		skills += cuantos
 	}
-		
-	method tieneLaQuaffle() = tengoQuaffle
-
+	method perderSkills(cuantos){
+		skills -= cuantos
+	}
+	method escoba(cual){
+		escoba = cual
+	}
+	
 	method nivelManejoDeEscoba() = skills / peso
 
-	method velocidad()= escoba.velocidad() * self.nivelManejoDeEscoba() 
+	method velocidad()= escoba.velocidad() * self.nivelManejoDeEscoba()
 	
 	method habilidad() = self.velocidad() + self.skills()
 
 	method reflejo() = (self.velocidad() * self.skills() / 100)
 	
-	method soyGroso(equipo) = 
-		self.habilidad() > equipo.habilidadPromedio() && 
-		self.velocidad() >= mercadoDeEscobas.velocidadEstablecida() 
+	method soyGroso(equipo) =  self.habilidad() > equipo.habilidadPromedio() && self.velocidad() >=  mercadoDeEscobas.velocidadEstablecida()
 
-	method golpearPorBludger(rival) {
-		self.perderSkills(2)
+	method golpearPorBludger(rival){
+		skills -= 2
 		escoba.golpearPorBludger() 
 	} 
 	
-	method lePasaElTrapo(jugador) = self.habilidad() >= jugador.habilidad() * 2
-	
-	method soyJugadorEstrellaContra(equipoRival) =	equipoRival.jugadores().all({ j => self.lePasaElTrapo(j) })
-	
-	method puedoObtenerQuaffle() = false
-
-	method blancoUtil(equipoRival) = self.soyJugadorEstrellaContra(equipoRival)
-
-	method puedeBloquear(cazadorEnemigo) = self.lePasaElTrapo(cazadorEnemigo) || self.suerte() == buenaSuerte
+	method lePasaElTrapo(jugador) = self.habilidad() >= (jugador.habilidad()) * 2 
 		
-	method ganarSkillsPorBloqueo(){
-		self.aumentarSkills(3)
+	method puedeObtenerQuaffle() = false
+	
+	method perderQuaffleContra(equipo){
+		if (!self.tieneQuaffle()){
+			throw new NoTengoQuaffle()
+		}
+		tieneQuaffle = false
+		equipo.obtenerQuaffle()
 	}
-				
+	
+	method jugadorEstrellaContra(equipo) = equipo.jugadores().all({r=>self.lePasaElTrapo(r)})
+	
 	method hacerJugada(equipoRival)
 	
+	method blancoUtil(equipo) = self.jugadorEstrellaContra(equipo)
+	
+	method puedoBloquear(rival) = self.lePasaElTrapo(rival) || suerte.tieneSuerte()
+	
+	method bloquear(){
+		self.ganarSkills(3)
+	}
 }

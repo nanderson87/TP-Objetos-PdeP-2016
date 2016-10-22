@@ -1,56 +1,48 @@
 import jugador.*
+import actividades.*
 import exceptions.*
-import equipo.*
 import suerte.*
-import actividadesBuscador.*
 
 class Cazador inherits Jugador {
 	var punteria
-
-	constructor(_skills,_peso,_fuerza,_escoba,_punteria ) = super(_skills,_peso,_fuerza,_escoba ){
+	
+	
+	constructor(_skills,_peso,_fuerza,_escoba,_punteria) = super(_skills,_peso,_fuerza,_escoba){
 		punteria = _punteria
 	}
-
+	
 	override method habilidad() = super() + punteria * fuerza
-
-	override method puedoObtenerQuaffle() = true
-
-	method obtenerLaQuaffle(){
-		tengoQuaffle = true
+	
+	override method puedeObtenerQuaffle() = true
+	
+	method obtenerQuaffle(){
+		tieneQuaffle = true
 	}
-
-	method perderQuaffleContra(equipo){
-		if(!tengoQuaffle){
-			throw new NoTengoQuaffle()
-		}
-		tengoQuaffle = false
-		equipo.obtenerLaQuaffle()
-	}
-
+	
 	override method golpearPorBludger(rival){
 		super(rival)
-		if(tengoQuaffle){
+		if(tieneQuaffle){
 			self.perderQuaffleContra(rival.miEquipo())
 		}
 	}
-
-	override method blancoUtil(equipoRival) = super(equipoRival) or self.tieneLaQuaffle()
-
+	
+	override method blancoUtil(equipo) = super(equipo) || tieneQuaffle
+	
 	override method hacerJugada(equipoRival){
-		if(tengoQuaffle){
-			self.perderQuaffleContra(equipoRival)
+		if(tieneQuaffle){
 			try{
 				equipoRival.bloquear(self)
 				self.perderSkills(3)
-			}catch e:NoPudeBloquear{
+			} catch e:NoPudeBloquear{
 				self.hacerGol()
 			}
+			self.perderQuaffleContra(equipoRival)
 		}
 	}
-
+	
 	method hacerGol(){
-		self.aumentarSkills(5)
 		miEquipo.ganarPuntos(10)
+		self.ganarSkills(5)
 	}
 }
 
@@ -62,100 +54,81 @@ class Guardian inherits Jugador{
 
 	override method habilidad() = super() + self.reflejo() + fuerza
 
-	override method puedoObtenerQuaffle() = true
+	override method puedeObtenerQuaffle() = true
 
-	method obtenerLaQuaffle(){
-		miEquipo.jugadoresPuedenObtenerQuaffle().filter({jugador=>jugador != self}).max({jugador=>jugador.habilidad()}).obtenerLaQuaffle()
+	method obtenerQuaffle(){
+		self.miEquipo().jugadoresQueObtienenQuaffle().filter({j=>j != self}).max({j=>j.habilidad()}).obtenerQuaffle()
 	}
-	
+
+	override method blancoUtil(equipo) = super(equipo) || !miEquipo.tieneQuaffle()
+
+	override method bloquear(){
+		self.ganarSkills(10)
+	}
+
 	override method hacerJugada(equipoRival){}
-
-	override method ganarSkillsPorBloqueo() {
-		self.aumentarSkills(10)
-	}
-	
-	override method blancoUtil( equipoRival ) = super( equipoRival ) or !self.miEquipo().tieneLaQuaffle()
 }
 
 class Golpeador inherits Jugador{
 	var punteria
-
-	constructor(_skills,_peso,_fuerza,_escoba,_punteria) = super(_skills,_peso,_fuerza,_escoba){
+		constructor(_skills,_peso,_fuerza, _escoba,_punteria) = super(_skills,_peso,_fuerza,_escoba){
 		punteria = _punteria
 	}
-
+	
 	override method habilidad() = super()+ punteria + fuerza
-
-	override method hacerJugada(equipoRival) {
-		var miBlanco = equipoRival.jugadores().filter({j => j.blancoUtil(self.miEquipo())}).max({b => b.habilidad()})
-		if (( miBlanco.reflejo() < punteria ) or suerte.tieneSuerte()){
-			miBlanco.golpearPorBludger(self)
-			skills += 5
+	
+	override method hacerJugada(equipoRival){
+		if(self.puedoGolpear(self.mejorBlanco(equipoRival))){
+			self.mejorBlanco(equipoRival).golpearPorBludger(self)
+			self.ganarSkills(5)
 		}
-	}
-}
-
-/**
-* El objetivo de los buscadores a lo largo del partido es encontrar y atrapar la Snitch.
-**/
-class Buscador  inherits Jugador{
-	var vision
-	var actividad = new Busqueda()	//  Inicialmente los buscadores arrancan buscando la Snitch
-	var estaAturdido = false
-
-	constructor(_skills,_peso,_fuerza,_escoba,_vision) = super(_skills,_peso,_fuerza,_escoba) {
-		vision = _vision
-	}
-
-	method vision() = vision
-	method actividad() = actividad
-
-	override method habilidad() = super() + self.reflejo() * vision
-
-	override method puedeBloquear(cazadorEnemigo) = false
-
-	override method hacerJugada(equipoRival) {
-		if(self.estaAturdido()){
-			// ¿throw estaAturdido? Si voy por este camino borrar el else
-			self.recuperate()
-		} else {
-			actividad.hacete(self)
-			if (actividad.pudoEncontrarSnitch(self)){
-				self.actividad(new Persecucion())
-				actividad.intentarAtraparSnitch(self)
-			}
-			
-		}
-	}
-
-	override method blancoUtil(equipoRival) = super(equipoRival) || actividad.cercaDeLaSnitch()
-
-	override method golpearPorBludger(rival) {
-		super(rival)
-		if(self.soyGroso(rival.miEquipo())) {
-			self.aturdite()
-		} else {
-			self.reiniciarBusqueda()
-		}
-	}
-
-	method atraparSnitch(){
-		self.miEquipo().ganarPuntos(150);
-		self.aumentarSkills(30)
-	}
-
-	method actividad(nuevaActividad){
-		actividad = nuevaActividad
-	}
-
-	method reiniciarBusqueda(){
-		self.actividad(new Busqueda())
 	}
 	
-	method encontroLaSnitch() = actividad.pudoEncontrarSnitch(self)
+	method mejorBlanco(equipoRival) = equipoRival.jugadores().filter({j=>j.blancoUtil(miEquipo)}).max({j=>j.habilidad()})
 
-	method estaAturdido() = estaAturdido
-	method recuperate(){ estaAturdido = false }
-	method aturdite(){ estaAturdido = true }
+	method puedoGolpear(blanco) = blanco.reflejo() < punteria || suerte.tieneSuerte()
+}
 
+class Buscador  inherits Jugador{
+	var vision
+	var actividad
+	
+	constructor(_skills,_peso,_fuerza,_escoba,_vision ) = super(_skills,_peso,_fuerza,_escoba ){
+		vision = _vision
+		actividad = new Busqueda()
+	}
+	
+	method actividad() = actividad
+	method vision() = vision
+	
+	method actividad(cual){
+		actividad = cual
+	}
+	
+	override method habilidad() = super() + self.reflejo() * vision
+	
+	override method hacerJugada(equipoRival){
+		actividad.hacete(self)
+	}
+
+	override method golpearPorBludger(rival){
+		super(rival)
+		if(self.soyGroso(miEquipo)){
+			self.actividad(new Aturdido(actividad))
+		}
+		else{
+			self.actividad(new Busqueda())
+		}
+	}
+	
+	method atraparSnitch(){
+		miEquipo.ganarPuntos(150)
+		self.ganarSkills(30)
+	}
+	
+	method encontroSnitch() = actividad.encontroSnitch()
+	
+	override method blancoUtil(equipo) = super(equipo) || (self.encontroSnitch() && actividad.distancia() < 1000)
+	
+	override method puedoBloquear(rival) = false
 }

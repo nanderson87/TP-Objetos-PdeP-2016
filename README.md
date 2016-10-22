@@ -23,4 +23,4 @@ El mismo es desarrollado en el lenguaje de progrmación y entorno de desarrollo 
 
 * Diagrama de Clases - v1.1
 
-![Diagrama de Clase - v1.1](https://github.com/zkLXXKO/TP-Objetos-PdeP-2016/blob/master/Diagrama%20de%20Clases/Diagrama%20de%20Clases%20v1.1.png)
+![Diagrama de Clase - v1.1](https://github.com/zkLXXKO/TP-Objetos-PdeP-2016/blob/master/Diagrama%20de%20Clases/Diagrama%20v2.0.png)

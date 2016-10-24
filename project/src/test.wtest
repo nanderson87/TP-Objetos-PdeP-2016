@@ -225,8 +225,7 @@ test "17- Si Goyle hace una jugada contra Gryffindor, con Ginny luego de perder 
 
 test "18- Un bloqueo de Slytherin a Katie, incluso con mala suerte, es exitoso porque Montague le pasa el trapo, con lo cual Katie queda con 42 puntos de skills y Montague con 38."{
 	suerte.tipoDeSuerte(malaSuerte)
-	fixture.katieBell().obtenerQuaffle()
-	fixture.katieBell().hacerJugada(fixture.slytherin())
+	fixture.slytherin().bloquear(fixture.katieBell())
 	assert.equals(42,fixture.katieBell().skills())
 	assert.equals(38,fixture.grahamMontague().skills())
 }
@@ -238,8 +237,7 @@ test "19. Un bloqueo de Gryffindor a Montague con mala suerte no es exitoso. No 
 
 test "20. Un bloqueo de Gryffindor a Montague con buena suerte es exitoso, con lo cual los skills de Montague quedan en 32 y los de Katie (la más veloz que puede bloquear) quedan en 48."{
 	suerte.tipoDeSuerte(buenaSuerte)
-	fixture.grahamMontague().obtenerQuaffle()
-	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
+	fixture.gryffindor().bloquear(fixture.grahamMontague())
 	assert.equals(32,fixture.grahamMontague().skills())
 	assert.equals(48,fixture.katieBell().skills())
 }

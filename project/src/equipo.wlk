@@ -38,7 +38,7 @@ class Equipo {
 	}
 	
 	method bloquear(rival){
-		self.bloqueadorDe(rival).bloquear(rival)
+		self.bloqueadorDe(rival).bloquear()
 	}
 	
 	method jugadoresPuedenBloquearA(rival) = jugadores.filter({j=>j.puedoBloquear(rival)}).sortedBy({j1,j2=>j1.velocidad() > j2.velocidad()})

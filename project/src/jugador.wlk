@@ -77,7 +77,8 @@ class Jugador {
 	
 	method puedoBloquear(rival) = self.lePasaElTrapo(rival) || suerte.tieneSuerte()
 	
-	method bloquear(){
+	method bloquear(rival){
 		self.ganarSkills(3)
+		rival.bloqueado()
 	}
 }

@@ -225,21 +225,21 @@ test "17- Si Goyle hace una jugada contra Gryffindor, con Ginny luego de perder 
 
 test "18- Un bloqueo de Slytherin a Katie, incluso con mala suerte, es exitoso porque Montague le pasa el trapo, con lo cual Katie queda con 42 puntos de skills y Montague con 38."{
 	suerte.tipoDeSuerte(malaSuerte)
-	fixture.slytherin().bloquear(fixture.katieBell())
+	fixture.katieBell().obtenerQuaffle()
+	fixture.katieBell().hacerJugada(fixture.slytherin())
 	assert.equals(42,fixture.katieBell().skills())
 	assert.equals(38,fixture.grahamMontague().skills())
 }
 
 test "19. Un bloqueo de Gryffindor a Montague con mala suerte no es exitoso. No deberían modificarse los skills de Montague."{
 	suerte.tipoDeSuerte(malaSuerte)
-	var skills = fixture.grahamMontague().skills()
-	assert.throwsExceptionLike(new NoPudeBloquear(),{=>fixture.gryffindor().bloquear(fixture.grahamMontague())})
-	assert.equals(skills,fixture.grahamMontague().skills())	
+	assert.throwsExceptionLike(new NoPudeBloquear(),{=>fixture.gryffindor().bloquear(fixture.grahamMontague())})	
 }
 
 test "20. Un bloqueo de Gryffindor a Montague con buena suerte es exitoso, con lo cual los skills de Montague quedan en 32 y los de Katie (la más veloz que puede bloquear) quedan en 48."{
 	suerte.tipoDeSuerte(buenaSuerte)
-	fixture.gryffindor().bloquear(fixture.grahamMontague())
+	fixture.grahamMontague().obtenerQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
 	assert.equals(32,fixture.grahamMontague().skills())
 	assert.equals(48,fixture.katieBell().skills())
 }
@@ -248,7 +248,8 @@ test "21- Si Ron gana 200 puntos de skills y cambia su escoba por una Nimbus 201
 	fixture.ronWeasley().escoba(new Nimbus(2016,100))
 	fixture.ronWeasley().ganarSkills(200)
 	suerte.tipoDeSuerte(malaSuerte)
-	fixture.gryffindor().bloquear(fixture.grahamMontague())
+	fixture.grahamMontague().obtenerQuaffle()
+	fixture.grahamMontague().hacerJugada(fixture.gryffindor())
 	assert.equals(32,fixture.grahamMontague().skills())
 	assert.equals(240,fixture.ronWeasley().skills())
 }

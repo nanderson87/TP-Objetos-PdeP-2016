@@ -32,15 +32,12 @@ class Cazador inherits Jugador {
 		if(tieneQuaffle){
 			try{
 				equipoRival.bloquear(self)
+				self.perderSkills(3)
 			} catch e:NoPudeBloquear{
 				self.hacerGol()
 			}
 			self.perderQuaffleContra(equipoRival)
 		}
-	}
-
-	method bloqueado(){
-		self.perderSkills(3)
 	}
 	
 	method hacerGol(){
@@ -65,9 +62,8 @@ class Guardian inherits Jugador{
 
 	override method blancoUtil(equipo) = super(equipo) || !miEquipo.tieneQuaffle()
 
-	override method bloquear(rival){
+	override method bloquear(){
 		self.ganarSkills(10)
-		rival.bloqueado()
 	}
 
 	override method hacerJugada(equipoRival){}
